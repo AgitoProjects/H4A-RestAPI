@@ -4,6 +4,11 @@
     "title": "H4ALL  API",
     "version": "v1"
   },
+  "servers": [
+    {
+      "url": "/restapi"
+    }
+  ],
   "paths": {
     "/api/BankAccounts": {
       "post": {
@@ -1524,7 +1529,7 @@
           "Payments"
         ],
         "summary": "Tahsilat/Tahakkuk listeleme servisi.",
-        "description": "Verilen arama kriterleri için tahsilat/tahakkuk bilgilerini elde etmek için kullanılacak servistir.",
+        "description": "Verilen arama kriterleri için tahsilat/tahakkuk bilgilerini elde etmek için kullanılacak servistir.\r\n            Belirli bir tarih itibari ile borçlu poliçeleri bulmak için :\r\n            tahakkuk vadesi gelmiş : **dueDateEnd** = istenen bir tarih\r\n            borcu 1 TL ye eşit veya fazla olan : **balanceMin** = 1\r\n            gönderilmelidir.\r\n            \r\n            Tahsilat hesabı için sistemde bulunan tüm tahsilat kayıtları dikkate alınmaktadır.",
         "requestBody": {
           "content": {
             "application/json": {
@@ -4762,51 +4767,67 @@
         "properties": {
           "policyID": {
             "type": "integer",
-            "format": "int64"
+            "description": "Poliçe kayıt numarası",
+            "format": "int64",
+            "nullable": true
           },
           "insurerCustomerID": {
             "type": "integer",
-            "format": "int64"
+            "description": "Sigorta ettrien müşteri numarası",
+            "format": "int64",
+            "nullable": true
           },
           "insurerIdNumber": {
             "type": "integer",
-            "format": "int64"
+            "description": "Sigorta ettiren TCKN bilgisi",
+            "format": "int64",
+            "nullable": true
           },
           "policyNumber": {
             "type": "integer",
-            "format": "int64"
+            "description": "Poliçe numarası",
+            "format": "int64",
+            "nullable": true
           },
           "policyOrder": {
             "type": "integer",
-            "format": "int32"
+            "description": "Poliçe sıra/yenileme numarası",
+            "format": "int32",
+            "nullable": true
           },
           "dueDateStart": {
             "type": "string",
+            "description": "vade tarihi aralığı başlangıç",
             "format": "date-time"
           },
           "dueDateEnd": {
             "type": "string",
+            "description": "Vade tarihi aralığı bitiş",
             "format": "date-time"
           },
           "cashflowType": {
             "$ref": "#/components/schemas/CashflowType"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Tahakkuk/tahsilat arama giriş verileri"
       },
       "CashflowResponse": {
         "type": "object",
         "properties": {
           "cashflowID": {
             "type": "integer",
+            "description": "kayıt ID",
             "format": "int64"
           },
           "policyID": {
             "type": "integer",
+            "description": "Poliçe kayıt numarası",
             "format": "int64"
           },
           "dueDate": {
             "type": "string",
+            "description": "Tahakkuk inin vade tarihi, tahsilat için tahsilat tarihi",
             "format": "date-time"
           },
           "cashflowType": {
@@ -4814,156 +4835,189 @@
           },
           "debit": {
             "type": "number",
+            "description": "Borç. Tahakkuklar ve iadeler için doludur",
             "format": "float"
           },
           "credit": {
             "type": "number",
+            "description": "Alacak. Tahsilat ve iptaller için doludur.",
             "format": "float"
           },
           "paymentTypeId": {
             "type": "integer",
+            "description": "Ödeme tipi. 1: kredi kartı, 2:banka, 4: nakit",
             "format": "int32"
           },
           "paymentTypeDesc": {
             "type": "string",
+            "description": "Ödeme tipi açıklaması",
             "nullable": true
           },
           "paymentChannelId": {
             "type": "integer",
+            "description": "Ödeme kanalı numarası.",
             "format": "int32",
             "nullable": true
           },
           "paymentChannelDesc": {
             "type": "string",
+            "description": "Ödeme kanalı açıklaması",
             "nullable": true
           },
           "customerCreditCardId": {
             "type": "integer",
+            "description": "Kredi kartı numarası",
             "format": "int64",
             "nullable": true
           },
           "customerBankAccountId": {
             "type": "integer",
+            "description": "Banka hesap tanımı id si",
             "format": "int64",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Tahakkuk ve tahsilat kayıtlarına ait bilgiler"
       },
       "CollectionSearchRequest": {
         "type": "object",
         "properties": {
           "policyID": {
             "type": "integer",
+            "description": "Poliçe kayıt numarası",
             "format": "int64",
             "nullable": true
           },
           "dueDateStart": {
             "type": "string",
+            "description": "Vade aralığı başlangıç",
             "format": "date-time",
             "nullable": true
           },
           "dueDateEnd": {
             "type": "string",
+            "description": "Vade aralığı bitiş",
             "format": "date-time",
             "nullable": true
           },
           "balanceMin": {
             "type": "number",
+            "description": "Açık vade mikartarı aralığı başlangıç. Örneğin bu değer 1 gönderilise. Bir TL den fazla borcu olan tüm kayıtlar listelenir.",
             "format": "float",
             "nullable": true
           },
           "balanceMax": {
             "type": "number",
+            "description": "Açık vade mikartarı aralığı bitiş.",
             "format": "float",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Açık vade arama giriş verileri"
       },
       "CollectionResponse": {
         "type": "object",
         "properties": {
           "policyID": {
             "type": "integer",
+            "description": "Poliçe kayıt numarası",
             "format": "int64"
           },
           "dueDate": {
             "type": "string",
+            "description": "Vade tarihi",
             "format": "date-time"
           },
           "debit": {
             "type": "number",
+            "description": "Borç",
             "format": "float"
           },
           "credit": {
             "type": "number",
+            "description": "Alacak",
             "format": "float"
           },
           "balance": {
             "type": "number",
+            "description": "Bakiye",
             "format": "float"
           },
           "customerCreditCardId": {
             "type": "integer",
+            "description": "Kredi kartı tanım id si",
             "format": "int64",
             "nullable": true
           },
           "customerBankAccountId": {
             "type": "integer",
+            "description": "Banka hesap tanım id si",
             "format": "int64",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Açık vade arama sonuç bilgileri"
       },
       "MakePaymentRequest": {
         "type": "object",
         "properties": {
           "policyID": {
             "type": "integer",
+            "description": "Poliçe kayıt numarası",
             "format": "int64"
           },
           "customerID": {
             "type": "integer",
+            "description": "Ödeme yapan Müşteri numarası",
             "format": "int64",
             "nullable": true
           },
           "amount": {
             "type": "number",
+            "description": "tahsil edilecek tutar",
             "format": "float",
             "nullable": true
           },
           "creditCardID": {
             "type": "integer",
+            "description": "tahsil edilecek kredi kartı kayıt numarası",
             "format": "int64",
             "nullable": true
           },
           "bankAccountID": {
             "type": "integer",
+            "description": "tahsil edilecek müşteri hesap bilgisi",
             "format": "int64",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Tahsilat yapmak için gerekli giri verileri"
       },
       "MakePaymentResponse": {
         "type": "object",
         "properties": {
           "isSuccessful": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "İşlem başarılı mı"
           },
           "cashflowID": {
             "type": "integer",
+            "description": "oluşan hareket kaydının id si",
             "format": "int64",
             "nullable": true
           },
           "message": {
             "type": "string",
+            "description": "dönüş mesajı",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "tahsilat sonuç bilgileri"
       },
       "CreatePersonResponse": {
         "type": "object",
@@ -5494,7 +5548,7 @@
           },
           "uwdate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
           },
           "uwreasonid": {
             "type": "integer",
@@ -5555,10 +5609,22 @@
       },
       "MakePolicyRequest": {
         "type": "object",
+        "properties": {
+          "transactionDate": {
+            "type": "string",
+            "description": "İşlemin tanzim tarihi",
+            "format": "date-time"
+          }
+        },
         "additionalProperties": false
       },
       "MakePolicyResponse": {
         "type": "object",
+        "properties": {
+          "policyinfo": {
+            "$ref": "#/components/schemas/TYPE_REST_POLICYSUMMARY"
+          }
+        },
         "additionalProperties": false
       },
       "PolicyPaymentInfoRequest": {
@@ -5589,7 +5655,8 @@
             "format": "int64"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Poliçe ödeme bilgileri giriş verileri"
       },
       "PolicyPaymentInfoResponse": {
         "type": "object",
@@ -5621,7 +5688,8 @@
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Poliçe ödeme bilgileri"
       },
       "PolicyCancelType": {
         "enum": [
@@ -5639,19 +5707,30 @@
         "properties": {
           "transactionDate": {
             "type": "string",
+            "description": "İşlemin tanzim tarihi",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "description": "Çıkış zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
             "format": "date-time"
           },
           "policyCancelType": {
             "$ref": "#/components/schemas/PolicyCancelType"
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Poliçe iptal talebi bilgileri"
       },
       "PolicyCancelResponse": {
         "type": "object",
         "properties": {
           "isSuccessfull": {
             "type": "boolean"
+          },
+          "endorsementNo": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
