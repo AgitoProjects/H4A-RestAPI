@@ -2,11 +2,13 @@
   "openapi": "3.0.1",
   "info": {
     "title": "H4ALL  API",
+    "description": "H44 uygulamasının bankasürans entegrasyonunu sağlamak için gerekli REST servsileridir.<p>Proje ile ilgili gelişmeleri [Agito Projects GitHub](https://github.com/AgitoProjects/H4A-RestAPI) den takip edebilirsiniz.</p>",
     "version": "v1"
   },
   "servers": [
     {
-      "url": "/restapi"
+      "url": "http://192.168.10.183/restapi",
+      "description": "Test Sunucusu"
     }
   ],
   "paths": {
@@ -5765,6 +5767,7 @@
           3,
           4,
           5,
+          6,
           7,
           8,
           9,
@@ -6516,7 +6519,7 @@
     "securitySchemes": {
       "Bearer": {
         "type": "apiKey",
-        "description": "JWT Authorization header using the Bearer scheme. <br> \r\n                      Enter 'Bearer' [space] and then your token in the text input below.\r\n                      <br><br>Example: 'Bearer 12345abcdef'",
+        "description": "JWT Authorization header Bearer yetkilendirme yöntemini kullanmaktadır. <br> \r\n                      Header içierisinde 'Bearer' [boşluk] token bilgisini sonraki kutuya giriniz.\r\n                      <br><br>Örnek: 'Bearer 12345abcdef'",
         "name": "Authorization",
         "in": "header"
       }
