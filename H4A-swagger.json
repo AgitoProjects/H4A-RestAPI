@@ -231,6 +231,40 @@
         }
       }
     },
+    "/api/Claims/{ClaimID}": {
+      "get": {
+        "tags": [
+          "Claims"
+        ],
+        "summary": "Tazminat sorgulama servisi.",
+        "description": "Verilen tazminat numarası için tazminat bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "ClaimID",
+            "in": "path",
+            "description": "Sorgulancak tazminat numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak tazminat numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Companies": {
       "post": {
         "tags": [
@@ -3532,6 +3566,201 @@
           "additionalProperties": false
         }
       },
+      "TYPE_REST_CLAIMDETAIL": {
+        "type": "object",
+        "properties": {
+          "benefitid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "provisionamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "coinsurance": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoicenumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoicedate": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceexclusion": {
+            "type": "number",
+            "format": "double"
+          },
+          "noncontractamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "sgkamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "payableamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "daycount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "netamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "vatrate": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "finishdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "receiptno": {
+            "type": "string",
+            "nullable": true
+          },
+          "seancecount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "exemptionamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceserialnumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_CLAIM": {
+        "type": "object",
+        "properties": {
+          "claimid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "healthcenterid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "policyid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "claimtype": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "eventdate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "complaints": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimexplain": {
+            "type": "string",
+            "nullable": true
+          },
+          "wherE2PAY": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "folderid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "diagnosisid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "statusid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sourceid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "diplomano": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorname": {
+            "type": "string",
+            "nullable": true
+          },
+          "specialityid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "reasondesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "epicrisisnote": {
+            "type": "string",
+            "nullable": true
+          },
+          "medulatrackingno": {
+            "type": "string",
+            "nullable": true
+          },
+          "communicationnumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "bankid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "branchid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "accountnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountowner": {
+            "type": "string",
+            "nullable": true
+          },
+          "iban": {
+            "type": "string",
+            "nullable": true
+          },
+          "paidcustomerid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "claimdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_CLAIMDETAIL"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateCompanyRequest": {
         "type": "object",
         "properties": {
@@ -4709,6 +4938,14 @@
           "statusid": {
             "type": "integer",
             "format": "int32"
+          },
+          "xcoordinate": {
+            "type": "string",
+            "nullable": true
+          },
+          "ycoordinate": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -6194,11 +6431,8 @@
             "description": "Döviz kuru",
             "format": "float"
           },
-          "planid": {
-            "type": "integer",
-            "description": "plan numarası",
-            "format": "int32",
-            "nullable": true
+          "planinfo": {
+            "$ref": "#/components/schemas/TYPE_REST_PLAN"
           }
         },
         "additionalProperties": false
@@ -6270,7 +6504,7 @@
             "format": "float",
             "nullable": true
           },
-          "personpremiums": {
+          "personlist": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TYPE_REST_PROPERSONPREMIUM"
@@ -6280,7 +6514,6 @@
           },
           "totaltax": {
             "type": "number",
-            "description": "Toplam vergi",
             "format": "float",
             "nullable": true
           },
