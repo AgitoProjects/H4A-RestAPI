@@ -7,8 +7,7 @@
   },
   "servers": [
     {
-      "url": "http://192.168.10.183/restapi",
-      "description": "Test Sunucusu"
+      "url": "/restapi"
     }
   ],
   "paths": {
@@ -231,6 +230,176 @@
         }
       }
     },
+    "/api/Claims": {
+      "post": {
+        "tags": [
+          "Claims"
+        ],
+        "summary": "Tazminat oluşturma servisi.",
+        "description": "Verilen bilgiler ile tazminat oluşturmak için kullanılacak servistir.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Claims"
+        ],
+        "summary": "Tazminat arama servisi.",
+        "description": "Verilen bilgiler ile tazminat bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "EventDateStart",
+            "in": "query",
+            "description": "Tazminat olay tarihi başlangıç değeri",
+            "schema": {
+              "type": "string",
+              "description": "Tazminat olay tarihi başlangıç değeri",
+              "nullable": true
+            }
+          },
+          {
+            "name": "EventDateEnd",
+            "in": "query",
+            "description": "Tazminat olay tarihi bitiş değeri",
+            "schema": {
+              "type": "string",
+              "description": "Tazminat olay tarihi bitiş değeri",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CreateDateStart",
+            "in": "query",
+            "description": "Tazminat oluşturma tarihi başlangıç değeri",
+            "schema": {
+              "type": "string",
+              "description": "Tazminat oluşturma tarihi başlangıç değeri",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CreateDateEnd",
+            "in": "query",
+            "description": "Tazminat oluşturma tarihi bitiş değeri",
+            "schema": {
+              "type": "string",
+              "description": "Tazminat oluşturma tarihi bitiş değeri",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ProductId",
+            "in": "query",
+            "description": "Ürün numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Ürün numarası",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AgencyId",
+            "in": "query",
+            "description": "Acente Numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Acente Numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "PolicyId",
+            "in": "query",
+            "description": "Poliçe Kayıt Numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Poliçe Kayıt Numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "OwnerId",
+            "in": "query",
+            "description": "Sigorta ettiren müşteri numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Sigorta ettiren müşteri numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "description": "Sigortalı müşteri numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı müşteri numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "ClaimId",
+            "in": "query",
+            "description": "Tazminat numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Tazminat numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Claims/{ClaimID}": {
       "get": {
         "tags": [
@@ -258,6 +427,54 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TYPE_REST_CLAIM"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Claims/RemaningLimit": {
+      "get": {
+        "tags": [
+          "Claims"
+        ],
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "BenefitId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClaimRemainLimit"
+                  }
                 }
               }
             }
@@ -885,6 +1102,144 @@
         }
       }
     },
+    "/api/Customer/{CustomerID}/contactinfo": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri iletişim bilgileri servisi.",
+        "description": "Verilen müşteri numarası için Müşteri iletişim bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sorgulancak müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerContactInfo"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri iletişim bilgilerini güncelleme servisi.",
+        "description": "Verilen müşteri numarası için Müşteri iletişim bilgilerini güncellemek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Güncellenecek müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Güncellenecek müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "iletişim bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerContactInfo"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri iletişim bilgilerini parçalı güncelleme servisi.",
+        "description": "Verilen müşteri numarası için Müşteri iletişim bilgilerini parçalı güncellemek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Güncellenecek müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Güncellenecek müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "iletişim bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerContactInfoRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerContactInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/H4AParams/PolicyTypes": {
       "get": {
         "tags": [
@@ -1508,6 +1863,30 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ZoneResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/H4AParams/HealthcenterTypes": {
+      "get": {
+        "tags": [
+          "H4AParams"
+        ],
+        "summary": "Anlaşmalı Kurum tipleri listesi",
+        "description": "Anlaşmalı kurum tipleri listesini elde etmek için kullanılacak kaynaktır",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HealthCenterTypeResponse"
                   }
                 }
               }
@@ -2344,6 +2723,48 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/InsuredCancelResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/insureds/{CustomerID}/Exemptions": {
+      "get": {
+        "tags": [
+          "Policies"
+        ],
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PersonExemptions"
+                  }
                 }
               }
             }
@@ -3579,7 +4000,8 @@
           },
           "coinsurance": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "invoicenumber": {
             "type": "string",
@@ -3611,7 +4033,8 @@
           },
           "daycount": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "netamount": {
             "type": "number",
@@ -3619,7 +4042,8 @@
           },
           "vatrate": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "finishdate": {
             "type": "string",
@@ -3631,7 +4055,8 @@
           },
           "seancecount": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "exemptionamount": {
             "type": "number",
@@ -3649,7 +4074,8 @@
         "properties": {
           "claimid": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "healthcenterid": {
             "type": "integer",
@@ -3669,7 +4095,7 @@
           },
           "eventdate": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
           },
           "complaints": {
             "type": "string",
@@ -3685,11 +4111,13 @@
           },
           "folderid": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "diagnosisid": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "statusid": {
             "type": "integer",
@@ -3709,7 +4137,8 @@
           },
           "specialityid": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "reasondesc": {
             "type": "string",
@@ -3725,15 +4154,18 @@
           },
           "communicationnumber": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "bankid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "branchid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "accountnumber": {
             "type": "string",
@@ -3749,7 +4181,8 @@
           },
           "paidcustomerid": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "claimdetails": {
             "type": "array",
@@ -3757,6 +4190,288 @@
               "$ref": "#/components/schemas/TYPE_REST_CLAIMDETAIL"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClaimRemainLimit": {
+        "type": "object",
+        "properties": {
+          "networkid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "networkdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "benefitdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "annuallimitgroupid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "annuallimitgroupdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "cburesult": {
+            "type": "string",
+            "nullable": true
+          },
+          "limitytl": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "limitytldesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "annuallimitytl": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "annuallimitytldesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedlimitvalue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedlimitvaluedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "remaininglimit": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "remaininglimitdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "annuallimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "annuallimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "annuallimitday": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "annuallimitdaydesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedlimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedlimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedlimitday": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedlimitdaydesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "remaininglimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "remaininglimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "remaininglimitday": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "remaininglimitdaydesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "annuallimitseance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "annuallimitseancedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedlimitseance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedlimitseancedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "remaininglimitseance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "remaininglimitseancedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "limitttb": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "limitttbdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedlimitttb": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedlimitttbdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "coinsurance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "coinsurancedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "benefitprintorder": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "benefitprintorderdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgannuallimit": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgannuallimitdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgusedlimitvalue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgusedlimitvaluedesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgremaininglimit": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgremaininglimitdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgannuallimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgannuallimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgusedlimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgusedlimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ylgremaininglimitcount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ylgremaininglimitcountdesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "exemptionytl": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "exemptionytldesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "usedexemptionytl": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "usedexemptionytldesc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -4477,6 +5192,190 @@
         "additionalProperties": false,
         "description": "Bireysel müşteri oluşturma için gerekli bilgiler"
       },
+      "CustomerContactInfo": {
+        "type": "object",
+        "properties": {
+          "address1": {
+            "type": "string",
+            "description": "Adres metni",
+            "nullable": true,
+            "example": "Fenerbahçe Mah. Egemen Sokak No:5"
+          },
+          "cityid1": {
+            "type": "integer",
+            "description": "Şehir kodu",
+            "format": "int32",
+            "nullable": true,
+            "example": 34
+          },
+          "provinceid1": {
+            "type": "integer",
+            "description": "İlçe kodu",
+            "format": "int32",
+            "nullable": true
+          },
+          "countryid1": {
+            "type": "integer",
+            "description": "Ülke kodu.",
+            "format": "int32",
+            "nullable": true,
+            "example": 211
+          },
+          "phone1": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone2": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "gsm": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "provinceid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "countryid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sendsms": {
+            "type": "integer",
+            "description": "SMS gönderim onayı. 1:Evet, 0:Hayır",
+            "format": "int32",
+            "nullable": true
+          },
+          "sendemail": {
+            "type": "integer",
+            "description": "mail gönderim onayı. 1:Evet, 0:Hayır",
+            "format": "int32",
+            "nullable": true
+          },
+          "cityname1": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityname2": {
+            "type": "string",
+            "nullable": true
+          },
+          "provincename1": {
+            "type": "string",
+            "nullable": true
+          },
+          "provincename2": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryname1": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryname2": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Müşteri iletişim bilgileri"
+      },
+      "CustomerContactInfoRequest": {
+        "type": "object",
+        "properties": {
+          "address1": {
+            "type": "string",
+            "description": "Adres metni",
+            "nullable": true,
+            "example": "Fenerbahçe Mah. Egemen Sokak No:5"
+          },
+          "cityid1": {
+            "type": "integer",
+            "description": "Şehir kodu",
+            "format": "int32",
+            "nullable": true,
+            "example": 34
+          },
+          "provinceid1": {
+            "type": "integer",
+            "description": "İlçe kodu",
+            "format": "int32",
+            "nullable": true
+          },
+          "countryid1": {
+            "type": "integer",
+            "description": "Ülke kodu.",
+            "format": "int32",
+            "nullable": true,
+            "example": 211
+          },
+          "phone1": {
+            "type": "string",
+            "nullable": true
+          },
+          "gsm": {
+            "type": "string",
+            "nullable": true
+          },
+          "address2": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "provinceid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "countryid2": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "phone2": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "sendsms": {
+            "type": "integer",
+            "description": "SMS gönderim onayı. 1:Evet, 0:Hayır",
+            "format": "int32",
+            "nullable": true
+          },
+          "sendemail": {
+            "type": "integer",
+            "description": "mail gönderim onayı. 1:Evet, 0:Hayır",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Müşteri iletişim bilgileri"
+      },
       "PolicyTypeResult": {
         "type": "object",
         "properties": {
@@ -4989,6 +5888,23 @@
         },
         "additionalProperties": false,
         "description": "Seyehat poliçeleri için bölge bilgileri"
+      },
+      "HealthCenterTypeResponse": {
+        "type": "object",
+        "properties": {
+          "healthCenterTypeId": {
+            "type": "integer",
+            "description": "referans olarak kullanılacak kurum tipi değeri",
+            "format": "int32"
+          },
+          "healthCenterTypeDesc": {
+            "type": "string",
+            "description": "kurum tipi açıklaması",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Anlaşmalı kurum tipleri"
       },
       "CashflowType": {
         "enum": [
@@ -5997,6 +6913,37 @@
         },
         "additionalProperties": false
       },
+      "PersonExemptions": {
+        "type": "object",
+        "properties": {
+          "uwclause": {
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "enddate": {
+            "type": "string",
+            "nullable": true
+          },
+          "exemptiontypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "limitvalue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "diagnosisdesc": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PrintReportType": {
         "enum": [
           1,
@@ -6089,6 +7036,11 @@
           "annuallimitdesc": {
             "type": "string",
             "description": "Yıllık limit değeri",
+            "nullable": true
+          },
+          "limitvalue": {
+            "type": "string",
+            "description": "limit değeri",
             "nullable": true
           }
         },
@@ -6514,6 +7466,7 @@
           },
           "totaltax": {
             "type": "number",
+            "description": "Toplam vergi",
             "format": "float",
             "nullable": true
           },
