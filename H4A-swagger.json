@@ -1895,6 +1895,68 @@
         }
       }
     },
+    "/api/H4AParams/checkname1": {
+      "post": {
+        "tags": [
+          "H4AParams"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/H4AParams/checkname2": {
+      "post": {
+        "tags": [
+          "H4AParams"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/checknameclass"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Payments/Cashflows": {
       "post": {
         "tags": [
@@ -2772,6 +2834,148 @@
         }
       }
     },
+    "/api/Policies/{PolicyID}/Endorsements/changeplan": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalı plan değişiklik zeyili oluşturma servisi",
+        "description": "Aktif bir sigortalının planını değiştirmek için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "çıkış yapma giriş parametreleri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanChangeEndorsomentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanChangeEndorsomentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlanChangeEndorsomentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/Endorsements": {
+      "get": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Poliçe Zeyil listesi alma servisi",
+        "description": "Poliçenin zeyil listesini almak için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/Endorsements/{ChangeNumber}": {
+      "get": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Poliçenin bir Zeyilini alma servisi",
+        "description": "Poliçenin bir zeyilini almak için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ChangeNumber",
+            "in": "path",
+            "description": "Zeyil numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Zeyil numarası",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGE"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Prints": {
       "post": {
         "tags": [
@@ -2964,6 +3168,89 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/TYPE_REST_QUESTIONS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{productId}/files": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Ürün dosyaları sorgulama servisi",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "istenilen ürün numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "istenilen ürün numarası",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Document"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/{productId}/plans/{planId}/files": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Plan dosyaları sorgulama servisi",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Planın bağlı olduğu ürün numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Planın bağlı olduğu ürün numarası",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "planId",
+            "in": "path",
+            "description": "plan numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "plan numarası",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Document"
                   }
                 }
               }
@@ -5906,6 +6193,16 @@
         "additionalProperties": false,
         "description": "Anlaşmalı kurum tipleri"
       },
+      "checknameclass": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CashflowType": {
         "enum": [
           1,
@@ -6944,6 +7241,28 @@
         },
         "additionalProperties": false
       },
+      "PlanChangeEndorsomentRequest": {
+        "type": "object",
+        "properties": {
+          "newPlanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "PrintReportType": {
         "enum": [
           1,
@@ -7236,6 +7555,38 @@
         "additionalProperties": false,
         "description": "Risk Soruları"
       },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "Basımı yapılan dosyanın adı",
+            "nullable": true
+          },
+          "fileData": {
+            "type": "string",
+            "description": "basımı yapılan dosyanın içeriği",
+            "format": "byte",
+            "nullable": true
+          },
+          "fileDataType": {
+            "type": "string",
+            "description": "dosya içeriğinin tipi",
+            "nullable": true
+          },
+          "fileExtention": {
+            "type": "string",
+            "description": "dosya uzantısı",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "description": "dosyanın boyutu",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_QUESTIONANSWER": {
         "type": "object",
         "properties": {
@@ -7493,6 +7844,11 @@
             "type": "number",
             "description": "Döviz kuru",
             "format": "float"
+          },
+          "productid": {
+            "type": "integer",
+            "description": "Teklifin ürün numarası",
+            "format": "int32"
           }
         },
         "additionalProperties": false,
@@ -7616,7 +7972,7 @@
           }
         },
         "additionalProperties": false,
-        "description": " Kredi kartı oluşturmak için gerekli veriler. RSA ile şifrelenmiş olarak beklenmektedir. Kullanılması gereken public key : \r\n -----BEGIN PUBLIC KEY-----\r\nMIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgH3VmGB8zYWEGUk7A+JpatNPjC0Q\r\nygd9BMAIYyekaHMtsqw6/z1rEiCHsUBZqnY1wilQNwtJa2levAzAGWDe9wGaDtmQ\r\nO+KX4iJWgeSL3WyBr/ugqH0OZaapRXgVzCpO/JXSdUyDD0tnCvAynEoiRdT1Rtl1\r\nvSRZkacwlTb2bFnDAgMBAAE =\r\n-----END PUBLIC KEY-----"
+        "description": "Kredi kartı oluşturmak için gerekli veriler. RSA 2048 bit ile şifrelenmiş olarak beklenmektedir. Public key bilgileri dokümantasyonlarda paylaşılacaktır."
       },
       "MakePolicyFromProposalRequest": {
         "type": "object",
