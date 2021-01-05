@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "H4ALL  API",
-    "description": "H44 uygulamasının bankasürans entegrasyonunu sağlamak için gerekli REST servsileridir.<p>Proje ile ilgili gelişmeleri [Agito Projects GitHub](https://github.com/AgitoProjects/H4A-RestAPI) den takip edebilirsiniz.</p>",
+    "description": "xxH44 uygulamasının bankasürans entegrasyonunu sağlamak için gerekli REST servsileridir.<p>Proje ile ilgili gelişmeleri [Agito Projects GitHub](https://github.com/AgitoProjects/H4A-RestAPI) den takip edebilirsiniz.</p>",
     "version": "v1"
   },
   "servers": [
