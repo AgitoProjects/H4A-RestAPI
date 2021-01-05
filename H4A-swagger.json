@@ -4328,6 +4328,104 @@
           }
         }
       }
+    },
+    "/api/SelfClaims": {
+      "post": {
+        "tags": [
+          "SelfClaims"
+        ],
+        "summary": "Self Servis Tazminat oluşturma servisi.",
+        "description": "Verilen bilgiler ile self servis tazminat oluşturmak için kullanılacak servistir.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_SELFCLAIM"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_SELFCLAIM"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_SELFCLAIM"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_SELFCLAIMRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SelfClaims/{ClaimID}": {
+      "get": {
+        "tags": [
+          "SelfClaims"
+        ],
+        "summary": "Self Servis Tazminat sorgulama servisi.",
+        "description": "Verilen tazminat numarası için tazminat bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "ClaimID",
+            "in": "path",
+            "description": "Sorgulancak tazminat numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak tazminat numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_SELFCLAIMRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SelfClaims/Benefits": {
+      "get": {
+        "tags": [
+          "SelfClaims"
+        ],
+        "summary": "Self Servis Tazminat yaratmak için kullanılabilinecek teminat listesi",
+        "description": "Self servis tazminat oluşturma sırasında kullanılabilen teminatların listesini elde etmek için kullanılacak servistir.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_SELFBENEFIT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -7406,6 +7504,22 @@
             "description": "Taksit tutarı",
             "format": "float",
             "nullable": true
+          },
+          "amountcurrency": {
+            "type": "number",
+            "description": "Taksit tutarı, döviz cinsinden",
+            "format": "float",
+            "nullable": true
+          },
+          "currencycode": {
+            "type": "string",
+            "description": "Döviz kodu",
+            "nullable": true
+          },
+          "currencyrate": {
+            "type": "number",
+            "description": "Döviz kuru",
+            "format": "float"
           }
         },
         "additionalProperties": false,
@@ -8529,6 +8643,22 @@
             "description": "Taksit tutarı",
             "format": "float",
             "nullable": true
+          },
+          "amountcurrency": {
+            "type": "number",
+            "description": "Taksit tutarı, döviz cinsinden",
+            "format": "float",
+            "nullable": true
+          },
+          "currencycode": {
+            "type": "string",
+            "description": "Döviz kodu",
+            "nullable": true
+          },
+          "currencyrate": {
+            "type": "number",
+            "description": "Döviz kuru",
+            "format": "float"
           }
         },
         "additionalProperties": false,
@@ -8856,6 +8986,79 @@
           }
         },
         "additionalProperties": false
+      },
+      "TYPE_REST_SELFCLAIM": {
+        "type": "object",
+        "properties": {
+          "policyid": {
+            "type": "integer",
+            "description": "Poliçe kayıt numarası",
+            "format": "int64"
+          },
+          "customerid": {
+            "type": "integer",
+            "description": "sigortalı müşteri numarası",
+            "format": "int64"
+          },
+          "hcid": {
+            "type": "integer",
+            "description": "Anlaşmalı kurum numarası",
+            "format": "int64"
+          },
+          "selfbenefitid": {
+            "type": "integer",
+            "description": "Self servis teminat numarası",
+            "format": "int32"
+          },
+          "eventdate": {
+            "type": "string",
+            "description": "Tazminata konu olayın gerçekşelme tarihi",
+            "format": "date-time"
+          },
+          "claimdescription": {
+            "type": "string",
+            "description": "Tazminat açıklaması, şikayet tanımı",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Self servis tazmiant oluşturma bilgileri"
+      },
+      "TYPE_REST_SELFCLAIMRESPONSE": {
+        "type": "object",
+        "properties": {
+          "claimid": {
+            "type": "integer",
+            "description": "Oluşan tazminatın numarası",
+            "format": "int64"
+          },
+          "claimdescription": {
+            "type": "string",
+            "description": "Tazminat açıklaması",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Self servis tazminat oluşturma sonuçları"
+      },
+      "TYPE_REST_SELFBENEFIT": {
+        "type": "object",
+        "properties": {
+          "selfbenefitid": {
+            "type": "integer",
+            "description": "Self servis teminat numarası",
+            "format": "int32",
+            "example": 1
+          },
+          "selfbenefirdesc": {
+            "type": "string",
+            "description": "Self servis teminat açıklaması",
+            "nullable": true,
+            "example": "Doktor muayene teminatı"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Self Servis Tazminat oluşturmada kullanılabilinecek teminatlar"
       }
     },
     "securitySchemes": {
