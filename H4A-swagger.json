@@ -3300,12 +3300,23 @@
         }
       }
     },
-    "/api/Products/Questions": {
+    "/api/Products/{productId}/Questions": {
       "get": {
         "tags": [
           "Products"
         ],
         "summary": "Ürün risk soruları listesi",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
