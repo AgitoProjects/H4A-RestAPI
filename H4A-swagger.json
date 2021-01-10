@@ -1084,6 +1084,94 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri arama servisi.",
+        "description": "Verilen bilgiler ile Müşteri aramak için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "IdNumber",
+            "in": "query",
+            "description": "Sigorta ettiren ya da sigortalı TCKN numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Sigorta ettiren ya da sigortalı TCKN numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "PolicyNumber",
+            "in": "query",
+            "description": "Poliçe numarası ile sigorta ettiren aramak için",
+            "schema": {
+              "type": "integer",
+              "description": "Poliçe numarası ile sigorta ettiren aramak için",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "PolicyOrder",
+            "in": "query",
+            "description": "Poliçe numarası ve yenileme numarası ile sigorta ettiren aramak için",
+            "schema": {
+              "type": "integer",
+              "description": "Poliçe numarası ve yenileme numarası ile sigorta ettiren aramak için",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "GSM",
+            "in": "query",
+            "description": "Cep telefon numarası ile Müşteri aramak için",
+            "schema": {
+              "type": "integer",
+              "description": "Cep telefon numarası ile Müşteri aramak için",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "description": "müşteri e-mail bilgisi ile arama yapmak için",
+            "schema": {
+              "type": "string",
+              "description": "müşteri e-mail bilgisi ile arama yapmak için",
+              "nullable": true
+            }
+          },
+          {
+            "name": "taxnumber",
+            "in": "query",
+            "description": "müşteri vergi numarası",
+            "schema": {
+              "type": "string",
+              "description": "müşteri vergi numarası",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerSearchResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/Customer/{CustomerID}": {
@@ -1380,6 +1468,166 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CustomerContactInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Customer/{CustomerID}/summary": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri önemli özet bilgileri elde etme servisi",
+        "description": "Verilen müşteri numarası için Müşteri poliçelerinin önemli bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sorgulancak müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerSummaryInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documents": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Yeni döküman yükleme servisi",
+        "description": "Verilen bilgiler ile yeni döküman oluşturmak için kullanılan servistir.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Aciklama": {
+                    "type": "string",
+                    "description": "deneme açıklama",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "Aciklama": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentInfo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documents/{DocumentId}": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "döküman indirme servisi",
+        "description": "Verilen bilgiler ile döküman indirmek için kullanılan servistir.",
+        "operationId": "GetDocument",
+        "parameters": [
+          {
+            "name": "DocumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Document"
                 }
               }
             }
@@ -6007,6 +6255,80 @@
         "additionalProperties": false,
         "description": "Bireysel müşteri oluşturma dönüş parametresi."
       },
+      "CustomerSearchResponse": {
+        "type": "object",
+        "properties": {
+          "customerid": {
+            "type": "integer",
+            "description": "Müşteri numarası. bu bilgi müşteri ile ilgili alanlarda referans olarak kullanılacaktır.",
+            "format": "int64",
+            "example": 1234567890
+          },
+          "customerType": {
+            "$ref": "#/components/schemas/CustomerType"
+          },
+          "name": {
+            "type": "string",
+            "description": "Bireysel müşteri adı.",
+            "nullable": true,
+            "example": "ALİ"
+          },
+          "surname": {
+            "type": "string",
+            "description": "Bireysel müşteri soyadı",
+            "nullable": true,
+            "example": "SARI"
+          },
+          "gender": {
+            "type": "integer",
+            "description": "Cinsyet. 1:Erkek, 2:Kadın, 3:boş",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "gsm": {
+            "type": "integer",
+            "description": "GSM numarası",
+            "format": "int64",
+            "nullable": true,
+            "example": 5325554433
+          },
+          "email": {
+            "type": "string",
+            "description": "kişi emmail bilgisi",
+            "nullable": true,
+            "example": "adisoyadi@mail.com"
+          },
+          "idnumber": {
+            "type": "integer",
+            "description": "TCKN numarası",
+            "format": "int64",
+            "nullable": true,
+            "example": 12345678901
+          },
+          "passportnumber": {
+            "type": "string",
+            "description": "PAsaport numarası",
+            "nullable": true,
+            "example": "U5380876"
+          },
+          "nationalityid": {
+            "type": "integer",
+            "description": "Uyruk. <code>Nationalities</code> servisiden dönen değerlerden biri olamlıdır. Türkiye için 1.",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "taxNumber": {
+            "type": "string",
+            "description": "VKN numarası",
+            "nullable": true,
+            "example": "12345678901"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Müşteri oluşturma dönüş parametresi."
+      },
       "PersonResponse": {
         "required": [
           "customerid",
@@ -6443,6 +6765,237 @@
         },
         "additionalProperties": false,
         "description": "Müşteri iletişim bilgileri"
+      },
+      "CustomerSummaryInfo": {
+        "type": "object",
+        "properties": {
+          "policyid": {
+            "type": "integer",
+            "description": "Poliçe kayıt numarası",
+            "format": "int64"
+          },
+          "policynumber": {
+            "type": "integer",
+            "description": "poliçe numarası",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyorder": {
+            "type": "integer",
+            "description": "poliçe yenileme numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "policytypeid": {
+            "type": "integer",
+            "description": "Poliçe tipi değeri",
+            "format": "int32",
+            "nullable": true
+          },
+          "policytypedesc": {
+            "type": "string",
+            "description": "Poliçe tipi açıklaması",
+            "nullable": true
+          },
+          "policystatusid": {
+            "type": "integer",
+            "description": "Poliçe durumu değeri",
+            "format": "int32",
+            "nullable": true
+          },
+          "policystatusdesc": {
+            "type": "string",
+            "description": "Poliçe durumu açıklaması",
+            "nullable": true
+          },
+          "policyactive": {
+            "type": "integer",
+            "description": "Poliçenin aktif olup oladığı. 1: Aktif, 0:Pasif",
+            "format": "int32",
+            "nullable": true
+          },
+          "productid": {
+            "type": "integer",
+            "description": "Ürün numarası",
+            "format": "int32"
+          },
+          "productname": {
+            "type": "string",
+            "description": "Ürün adı",
+            "nullable": true
+          },
+          "productdesc": {
+            "type": "string",
+            "description": "Ürün açıklaması",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "description": "Poliçe başlangıç durumu",
+            "format": "date-time"
+          },
+          "enddate": {
+            "type": "string",
+            "description": "Poliçe bitiş tarihi",
+            "format": "date-time"
+          },
+          "insurername": {
+            "type": "string",
+            "description": "Sigorta ettiren adı",
+            "nullable": true
+          },
+          "duedays": {
+            "type": "integer",
+            "description": "Poliçe bitimine kalan süre",
+            "format": "int32",
+            "nullable": true
+          },
+          "customerroleid": {
+            "type": "integer",
+            "description": "Müşterinin poliçedeki konumu için verilen değer. 1: sigorta ettiren, 2:sigortalı, 3:sevdiklerim poliçesi",
+            "format": "int32",
+            "nullable": true
+          },
+          "customerroledesc": {
+            "type": "string",
+            "description": "Müşterinin poliçedeki konumu açıklaması.",
+            "nullable": true
+          },
+          "paidinstallmentcount": {
+            "type": "integer",
+            "description": "ödenmiş taksit sayısı",
+            "format": "int32",
+            "nullable": true
+          },
+          "openinstallmentcount": {
+            "type": "integer",
+            "description": "ödenecek taksit sayısı",
+            "format": "int32",
+            "nullable": true
+          },
+          "debtinstallmentcount": {
+            "type": "integer",
+            "description": "borçlu taksit sayısı",
+            "format": "int32",
+            "nullable": true
+          },
+          "debtamount": {
+            "type": "number",
+            "description": "borç tutarı",
+            "format": "float",
+            "nullable": true
+          },
+          "pastdebtdays": {
+            "type": "integer",
+            "description": "ödenmemiş taksitten geçen süre",
+            "format": "int32",
+            "nullable": true
+          },
+          "nextinstallmentdays": {
+            "type": "integer",
+            "description": "ödenecek ilk taksite kalan süre",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Müşterinin poliçe özet bilgileri"
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "rel": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DocumentInfo": {
+        "type": "object",
+        "properties": {
+          "fileID": {
+            "type": "string",
+            "description": "Dokuman ID si",
+            "nullable": true
+          },
+          "fileName": {
+            "type": "string",
+            "description": "Dokuman adı",
+            "nullable": true
+          },
+          "fileDataType": {
+            "type": "string",
+            "description": "dosya içeriğinin tipi",
+            "nullable": true
+          },
+          "fileExtention": {
+            "type": "string",
+            "description": "dosya uzantısı",
+            "nullable": true
+          },
+          "fileDesc": {
+            "type": "string",
+            "description": "Dokuman açıklaması",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "description": "dosyanın boyutu",
+            "format": "int64"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "Basımı yapılan dosyanın adı",
+            "nullable": true
+          },
+          "fileData": {
+            "type": "string",
+            "description": "basımı yapılan dosyanın içeriği",
+            "format": "byte",
+            "nullable": true
+          },
+          "fileDataType": {
+            "type": "string",
+            "description": "dosya içeriğinin tipi",
+            "nullable": true
+          },
+          "fileExtention": {
+            "type": "string",
+            "description": "dosya uzantısı",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "description": "dosyanın boyutu",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
       },
       "PolicyTypeResult": {
         "type": "object",
@@ -8440,38 +8993,6 @@
         "additionalProperties": false,
         "description": "Risk Soruları"
       },
-      "Document": {
-        "type": "object",
-        "properties": {
-          "fileName": {
-            "type": "string",
-            "description": "Basımı yapılan dosyanın adı",
-            "nullable": true
-          },
-          "fileData": {
-            "type": "string",
-            "description": "basımı yapılan dosyanın içeriği",
-            "format": "byte",
-            "nullable": true
-          },
-          "fileDataType": {
-            "type": "string",
-            "description": "dosya içeriğinin tipi",
-            "nullable": true
-          },
-          "fileExtention": {
-            "type": "string",
-            "description": "dosya uzantısı",
-            "nullable": true
-          },
-          "fileSize": {
-            "type": "integer",
-            "description": "dosyanın boyutu",
-            "format": "int64"
-          }
-        },
-        "additionalProperties": false
-      },
       "TYPE_REST_QUESTIONANSWER": {
         "type": "object",
         "properties": {
@@ -9035,6 +9556,92 @@
         "additionalProperties": false,
         "description": "Self servis tazmiant oluşturma bilgileri"
       },
+      "TYPE_REST_SELFCLAIMDETAIL": {
+        "type": "object",
+        "properties": {
+          "benefitid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "benefitname": {
+            "type": "string",
+            "nullable": true
+          },
+          "provisionamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "coinsurance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "invoicenumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoicedate": {
+            "type": "string",
+            "nullable": true
+          },
+          "invoiceamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceexclusion": {
+            "type": "number",
+            "format": "double"
+          },
+          "noncontractamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "sgkamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "payableamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "daycount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "netamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "vatrate": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "finishdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "receiptno": {
+            "type": "string",
+            "nullable": true
+          },
+          "seancecount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "exemptionamount": {
+            "type": "number",
+            "format": "double"
+          },
+          "invoiceserialnumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_SELFCLAIMRESPONSE": {
         "type": "object",
         "properties": {
@@ -9046,6 +9653,41 @@
           "claimdescription": {
             "type": "string",
             "description": "Tazminat açıklaması",
+            "nullable": true
+          },
+          "eventdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "healthcenterid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "healthcentername": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorname": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimstatusdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "claimstatusid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wherE2PAYDESC": {
+            "type": "string",
+            "nullable": true
+          },
+          "selfclaimdetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_SELFCLAIMDETAIL"
+            },
             "nullable": true
           }
         },
