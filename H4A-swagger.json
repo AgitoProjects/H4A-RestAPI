@@ -230,6 +230,81 @@
         }
       }
     },
+    "/api/BatchProposals": {
+      "post": {
+        "tags": [
+          "BatchProposals"
+        ],
+        "summary": "Ön Teklif oluşturma servisi.",
+        "description": "Ön Teklif oluşturma servisidir.",
+        "requestBody": {
+          "description": "Oluşturulmak istenen Ön Teklifin bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Yeni oluşturulan Ön Teklif numarası dönülür",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchProposals/{BatchProposalID}": {
+      "get": {
+        "tags": [
+          "BatchProposals"
+        ],
+        "summary": "Ön Teklif sorgulama servisi.",
+        "description": "Verilen ön Teklif numarası için ön Teklif bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "BatchProposalID",
+            "in": "path",
+            "description": "Sorgulancak Ön Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak Ön Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Claims": {
       "post": {
         "tags": [
@@ -1508,6 +1583,63 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Customer/{CustomerID}/sendOTP": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteriye OTP gönderme servisi",
+        "description": "Verilen müşteri numarası için Müşteriye One Time Password SMS i göndermek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "OTP": {
+                    "type": "string",
+                    "description": "Müşteriye gönderilecek Tek kullanımlık şifre",
+                    "nullable": true
+                  },
+                  "PhoneNumber": {
+                    "type": "integer",
+                    "description": "Müşteri numarası. Bu bilgi iletilmez ise müşteri üzerinde tanımlı GSM e SMS atılır.",
+                    "format": "int64",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "OTP": {
+                  "style": "form"
+                },
+                "PhoneNumber": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -4777,6 +4909,218 @@
           "type": "object",
           "additionalProperties": false
         }
+      },
+      "TYPE_REST_ADDRESS": {
+        "type": "object",
+        "properties": {
+          "addressid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cityid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cityname": {
+            "type": "string",
+            "nullable": true
+          },
+          "provinceid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "provincename": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "addressdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_BATCHPROPOSALPERSON": {
+        "type": "object",
+        "properties": {
+          "batchproposalid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "batchproposalpersonid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "idnumber": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "passportnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "nationalityid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "customername": {
+            "type": "string",
+            "nullable": true
+          },
+          "customersurname": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "genderid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "relationtypeid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "mothername": {
+            "type": "string",
+            "nullable": true
+          },
+          "fathername": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthplace": {
+            "type": "string",
+            "nullable": true
+          },
+          "batchproposalpersonstatusid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "rejectreasonid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createuser": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "familymembercount": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "rF_CODE": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "addressiD1": {
+            "$ref": "#/components/schemas/TYPE_REST_ADDRESS"
+          },
+          "addressiD2": {
+            "$ref": "#/components/schemas/TYPE_REST_ADDRESS"
+          },
+          "gsm": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_BATCHPROPOSAL": {
+        "type": "object",
+        "properties": {
+          "batchproposalid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "customername": {
+            "type": "string",
+            "nullable": true
+          },
+          "customersurname": {
+            "type": "string",
+            "nullable": true
+          },
+          "batchproposalstatusid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createuser": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "salesmanid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "proposaltypeid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "istransfer": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSALPERSON"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "TYPE_REST_CLAIMDETAIL": {
         "type": "object",
