@@ -3503,6 +3503,49 @@
         }
       }
     },
+    "/api/Policies/EndorsementReport": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Poliçe zeyil listeleme servisi.",
+        "description": "Verilen arama kriterleri için poliçe/zeyil bilgilerini elde etmek için kullanılacak servistir.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndorsementReportSearchRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndorsementReportSearchRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EndorsementReportSearchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGEREPORT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Prints": {
       "post": {
         "tags": [
@@ -8709,6 +8752,23 @@
             "type": "number",
             "description": "Döviz kuru",
             "format": "float"
+          },
+          "policypremiumcurrency": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılcacak dövizli poliçe primi",
+            "format": "float",
+            "nullable": true
+          },
+          "policycurrencycode": {
+            "type": "string",
+            "description": "Poliçe basımı için kullanılacak Döviz tipi",
+            "nullable": true
+          },
+          "policycurrencyrate": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılacak Döviz kuru",
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -9016,6 +9076,260 @@
           "validFrom": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EndorsementReportSearchRequest": {
+        "type": "object",
+        "properties": {
+          "searchTransactionDateStart": {
+            "type": "string",
+            "description": "Tanzim tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchTransactionDateEnd": {
+            "type": "string",
+            "description": "Tanzim tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "insurerCustomerID": {
+            "type": "integer",
+            "description": "Poliçe başlangıç tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyId": {
+            "type": "integer",
+            "description": "Sigorta ettiren TCKN si ile arama",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyNumber": {
+            "type": "integer",
+            "description": "Poliçe numarası",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyOrder": {
+            "type": "integer",
+            "description": "Poliçe sıra numarası, poliçe yenileme numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "changeNumber": {
+            "type": "integer",
+            "description": "Zeyil numarası ile arama yapmak için",
+            "format": "int32",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Poliçe Zeyil Raporu arama kirterleri"
+      },
+      "TYPE_REST_PCR_PERSON": {
+        "type": "object",
+        "properties": {
+          "person": {
+            "$ref": "#/components/schemas/TYPE_REST_CUSTOMERINFO"
+          },
+          "premium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "netpremium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "netcommission": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "currencycode": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyrate": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "planid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "planname": {
+            "type": "string",
+            "nullable": true
+          },
+          "validfrom": {
+            "type": "string",
+            "nullable": true
+          },
+          "dayscover": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "premiumcurrency": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "netpremiumcurrency": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "netcommissioncurrency": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_POLICYCHANGEREPORT": {
+        "type": "object",
+        "properties": {
+          "policyid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "policynumber": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "policyorder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "changenumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "changetypeid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "changetypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "ownerid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "insurer": {
+            "$ref": "#/components/schemas/TYPE_REST_CUSTOMERINFO"
+          },
+          "policystartdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "policyenddate": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactiondate": {
+            "type": "string",
+            "nullable": true
+          },
+          "validfrom": {
+            "type": "string",
+            "nullable": true
+          },
+          "productid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "productname": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "agencyname": {
+            "type": "string",
+            "nullable": true
+          },
+          "subagencynum": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "salesmanid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "calculatedpremium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "premium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "riskpremium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "tariffpremium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "commission": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "tax": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "currencycode": {
+            "type": "string",
+            "nullable": true
+          },
+          "currencyrate": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "currencypremium": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "insuredlist": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PCR_PERSON"
+            },
+            "nullable": true
+          },
+          "paymentplan": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_INSTALLMENT"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -9655,6 +9969,23 @@
             "type": "number",
             "description": "Döviz kuru",
             "format": "float"
+          },
+          "policypremiumcurrency": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılcacak dövizli poliçe primi",
+            "format": "float",
+            "nullable": true
+          },
+          "policycurrencycode": {
+            "type": "string",
+            "description": "Poliçe basımı için kullanılacak Döviz tipi",
+            "nullable": true
+          },
+          "policycurrencyrate": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılacak Döviz kuru",
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false,
