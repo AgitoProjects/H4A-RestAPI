@@ -4169,6 +4169,69 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Teklif indirim şarjman listesi servisi",
+        "description": "Teklifteki indirim şarjmanların listesini almak için kullanılan servistir.",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TYPE_REST_FACTORS"
+                },
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TYPE_REST_FACTORS"
+                },
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TYPE_REST_FACTORS"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Teklif numarası dönülür",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_PROPOSALFACTORS"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/Proposals/{ProposalID}/persons": {
@@ -9273,22 +9336,12 @@
             "type": "string",
             "nullable": true
           },
-          "calculatedpremium": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
           "premium": {
             "type": "number",
             "format": "float",
             "nullable": true
           },
-          "riskpremium": {
-            "type": "number",
-            "format": "float",
-            "nullable": true
-          },
-          "tariffpremium": {
+          "netpremium": {
             "type": "number",
             "format": "float",
             "nullable": true
@@ -9329,6 +9382,20 @@
             "items": {
               "$ref": "#/components/schemas/TYPE_REST_INSTALLMENT"
             },
+            "nullable": true
+          },
+          "paymenttypeid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymenttypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentplanid": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
