@@ -8694,6 +8694,83 @@
         "additionalProperties": false,
         "description": "Zeyil bilgileri"
       },
+      "TYPE_REST_AGENCYCASHFLOW": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "transdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "policyid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "policynumber": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyorder": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "changenumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "salesmanid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "commissiontypeid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "commtypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "basedamount": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "commission": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "paidstatusid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paiddate": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_POLICYSUMMARY": {
         "type": "object",
         "properties": {
@@ -8831,6 +8908,14 @@
             "type": "number",
             "description": "Poliçe basımı için kullanılacak Döviz kuru",
             "format": "float",
+            "nullable": true
+          },
+          "agencycommissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_AGENCYCASHFLOW"
+            },
+            "description": "Acente komisyon hakediş listesi",
             "nullable": true
           }
         },
@@ -9396,6 +9481,14 @@
           "paymentplanid": {
             "type": "integer",
             "format": "int32",
+            "nullable": true
+          },
+          "agencycommissions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_AGENCYCASHFLOW"
+            },
+            "description": "Acente komisyon hakediş listesi",
             "nullable": true
           }
         },
