@@ -456,6 +456,17 @@
               "format": "int64",
               "nullable": true
             }
+          },
+          {
+            "name": "StatusId",
+            "in": "query",
+            "description": "Hasar durum numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Hasar durum numarası",
+              "format": "int32",
+              "nullable": true
+            }
           }
         ],
         "responses": {
@@ -3674,6 +3685,17 @@
               "description": "plan numarası",
               "format": "int32"
             }
+          },
+          {
+            "name": "benefitgroupId",
+            "in": "query",
+            "description": "teminat grubu filtrelemek için",
+            "schema": {
+              "type": "integer",
+              "description": "teminat grubu filtrelemek için",
+              "format": "int32",
+              "nullable": true
+            }
           }
         ],
         "responses": {
@@ -5289,6 +5311,10 @@
             "type": "integer",
             "format": "int32"
           },
+          "benefitname": {
+            "type": "string",
+            "nullable": true
+          },
           "provisionamount": {
             "type": "number",
             "format": "double"
@@ -5360,6 +5386,11 @@
           "invoiceserialnumber": {
             "type": "string",
             "nullable": true
+          },
+          "customeramount": {
+            "type": "number",
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -5375,6 +5406,10 @@
           "healthcenterid": {
             "type": "integer",
             "format": "int64"
+          },
+          "healthcentername": {
+            "type": "string",
+            "nullable": true
           },
           "personid": {
             "type": "integer",
@@ -5417,6 +5452,10 @@
           "statusid": {
             "type": "integer",
             "format": "int32"
+          },
+          "statusdesc": {
+            "type": "string",
+            "nullable": true
           },
           "sourceid": {
             "type": "integer",
