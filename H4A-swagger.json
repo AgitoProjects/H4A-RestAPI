@@ -3700,6 +3700,60 @@
         }
       }
     },
+    "/api/Products/{productId}/plans/{planId}/benefitgroups": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "summary": "Plan içindeki teminat grupları listesi",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "path",
+            "description": "Planın bağlı olduğu ürün numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Planın bağlı olduğu ürün numarası",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "planId",
+            "in": "path",
+            "description": "plan numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "plan numarası",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_PLAN"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Products/Paymentplans": {
       "get": {
         "tags": [
@@ -9591,6 +9645,15 @@
           "limitvalue": {
             "type": "string",
             "description": "limit değeri",
+            "nullable": true
+          },
+          "benefitgroupid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "benefitgroupdesc": {
+            "type": "string",
             "nullable": true
           }
         },
