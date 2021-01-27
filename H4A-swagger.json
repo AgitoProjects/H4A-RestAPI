@@ -7502,6 +7502,38 @@
             "description": "ödenecek ilk taksite kalan süre",
             "format": "int32",
             "nullable": true
+          },
+          "paymentplanid": {
+            "type": "integer",
+            "description": "ödeme planu nımarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymentplanname": {
+            "type": "string",
+            "description": "Ödeme planı adı",
+            "nullable": true
+          },
+          "paymenttypeid": {
+            "type": "integer",
+            "description": "Ödeme tipi numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "paymenttypedesc": {
+            "type": "string",
+            "description": "Ödeme tipi açıklaması",
+            "nullable": true
+          },
+          "pastdebtdate": {
+            "type": "string",
+            "description": "Son ödenmemiş taksit tarihi",
+            "nullable": true
+          },
+          "nextinstallmentdate": {
+            "type": "string",
+            "description": "bir sonraki ödeme tarihi",
+            "nullable": true
           }
         },
         "additionalProperties": false,
