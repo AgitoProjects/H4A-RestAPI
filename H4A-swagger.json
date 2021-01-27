@@ -1598,6 +1598,54 @@
         }
       }
     },
+    "/api/Customer/{CustomerID}/summary/{PolicyId}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri önemli özet bilgileri elde etme servisi, tek bir poliçe için",
+        "description": "Verilen müşteri numarası için Müşteri poliçelerinin önemli bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sorgulancak müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak müşteri numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerSummaryInfo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Customer/{CustomerID}/sendOTP": {
       "post": {
         "tags": [
@@ -8176,6 +8224,11 @@
           },
           "cashflowType": {
             "$ref": "#/components/schemas/CashflowType"
+          },
+          "cashflowtypedesc": {
+            "type": "string",
+            "description": "kayıt tipi açıklamsı. 1:tahsilat, 2: tahakkuk, 3: iptal, 4:iade",
+            "nullable": true
           },
           "debit": {
             "type": "number",
