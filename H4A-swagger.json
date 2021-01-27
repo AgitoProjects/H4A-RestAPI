@@ -2328,8 +2328,10 @@
           {
             "name": "CityId",
             "in": "query",
+            "description": "şehir kodu",
             "schema": {
               "type": "integer",
+              "description": "şehir kodu",
               "format": "int32",
               "nullable": true
             }
@@ -2337,8 +2339,21 @@
           {
             "name": "HealthcenterTypeId",
             "in": "query",
+            "description": "kurum tipi",
             "schema": {
               "type": "integer",
+              "description": "kurum tipi",
+              "format": "int32",
+              "nullable": true
+            }
+          },
+          {
+            "name": "provinceId",
+            "in": "query",
+            "description": "ilçe kodu",
+            "schema": {
+              "type": "integer",
+              "description": "ilçe kodu",
               "format": "int32",
               "nullable": true
             }
@@ -8546,22 +8561,26 @@
           "premium": {
             "type": "number",
             "description": "Brüt prim",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netpremium": {
             "type": "number",
             "description": "Net prim",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netcommission": {
             "type": "number",
             "description": "Komisyon",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "planid": {
             "type": "integer",
             "description": "sigortalı plan numarası",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "zoneid": {
             "type": "integer",
@@ -8572,17 +8591,20 @@
           "premiumcurrency": {
             "type": "number",
             "description": "Brüt prim, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netpremiumcurrency": {
             "type": "number",
             "description": "Net prim, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netcommissioncurrency": {
             "type": "number",
             "description": "Komisyon, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "currencycode": {
             "type": "string",
@@ -8592,7 +8614,8 @@
           "currencyrate": {
             "type": "number",
             "description": "Döviz kuru",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8626,7 +8649,8 @@
           "currencyrate": {
             "type": "number",
             "description": "Döviz kuru",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8673,17 +8697,20 @@
           "dayscover": {
             "type": "integer",
             "description": "zeyilin kapsadığı gün sayısı",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "planid": {
             "type": "integer",
             "description": "Plan numarası",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "agencyid": {
             "type": "integer",
             "description": "acente kayıt numarası",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "subagencynum": {
             "type": "integer",
@@ -8700,52 +8727,62 @@
           "calculatedpremium": {
             "type": "number",
             "description": "Hesaplanan prin tutarı",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "premium": {
             "type": "number",
             "description": "Brüt prim",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "riskpremium": {
             "type": "number",
             "description": "Risk primi",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "tariffpremium": {
             "type": "number",
             "description": "Tarife primi",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "commission": {
             "type": "number",
             "description": "Komisyon",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "whogetsclaim": {
             "type": "integer",
             "description": "Hasar ödemesi hangi sigortalıya yapılacak",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "whopayS1": {
             "type": "integer",
             "description": "birinci prim ödeyen",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "whopayS2": {
             "type": "integer",
             "description": "ikinci prim ödeyen",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           },
           "whopayS1AMOUNT": {
             "type": "number",
             "description": "birinci prim ödeyen miktarı",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "whopayS2AMOUNT": {
             "type": "number",
             "description": "ikinci prim ödeyen miktarı",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "description": {
             "type": "string",
@@ -8766,7 +8803,8 @@
           "tax": {
             "type": "number",
             "description": "vergi miktarı",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "currencycode": {
             "type": "string",
@@ -8776,12 +8814,14 @@
           "currencyrate": {
             "type": "number",
             "description": "Döviz kuru",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "currencypremium": {
             "type": "number",
             "description": "Döviz primi",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8964,17 +9004,20 @@
           "totalpremiumcurrency": {
             "type": "number",
             "description": "Brüt prim, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netpremiumcurrency": {
             "type": "number",
             "description": "Net prim, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netcommissioncurrency": {
             "type": "number",
             "description": "Net komisyon, Döviz kodu cinsinden",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "currencycode": {
             "type": "string",
@@ -8984,7 +9027,8 @@
           "currencyrate": {
             "type": "number",
             "description": "Döviz kuru",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "policypremiumcurrency": {
             "type": "number",
