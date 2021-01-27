@@ -9241,6 +9241,11 @@
           "isClosed": {
             "type": "boolean",
             "description": "Tahakkuk kapalı mı. 0: Açık, 1: kapalı"
+          },
+          "lasttransactiondate": {
+            "type": "string",
+            "description": "Son yapılan tahsilat ya da iade tarihi",
+            "nullable": true
           }
         },
         "additionalProperties": false,
