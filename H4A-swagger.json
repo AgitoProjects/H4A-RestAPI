@@ -568,6 +568,17 @@
               "format": "int32",
               "nullable": true
             }
+          },
+          {
+            "name": "BenefitGroupId",
+            "in": "query",
+            "description": "Teminat grubu",
+            "schema": {
+              "type": "integer",
+              "description": "Teminat grubu",
+              "format": "int32",
+              "nullable": true
+            }
           }
         ],
         "responses": {
@@ -5888,6 +5899,20 @@
             "type": "string",
             "nullable": true,
             "readOnly": true
+          },
+          "benefitid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "benefitgroupid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "benefitgroupdesc": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
