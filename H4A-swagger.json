@@ -7155,7 +7155,7 @@
             "description": "Cinsiyet Açıklaması",
             "nullable": true
           },
-          "maritimaritalstatusid": {
+          "maritalstatusid": {
             "type": "integer",
             "description": "medeni durum id",
             "format": "int32",
