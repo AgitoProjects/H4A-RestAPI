@@ -4995,6 +4995,48 @@
         }
       }
     },
+    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Exemptions": {
+      "get": {
+        "tags": [
+          "Proposals"
+        ],
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PersonExemptions"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/SelfClaims": {
       "post": {
         "tags": [
@@ -7101,6 +7143,28 @@
             "description": "Entegre olan sistemdeki müşteri referans numarası. Müşteri yaratılıken gönderilen benzersiz numara. Bu numara üzerinden entegrasyon sağlanacaktır.",
             "format": "int64",
             "example": 12345
+          },
+          "genderId": {
+            "type": "integer",
+            "description": "Cinsiyet id",
+            "format": "int32",
+            "nullable": true
+          },
+          "genderDesc": {
+            "type": "string",
+            "description": "Cinsiyet Açıklaması",
+            "nullable": true
+          },
+          "maritimaritalstatusid": {
+            "type": "integer",
+            "description": "medeni durum id",
+            "format": "int32",
+            "nullable": true
+          },
+          "maritalstatusDesc": {
+            "type": "string",
+            "description": "Medeni durum açıklaması",
+            "nullable": true
           }
         },
         "additionalProperties": false,
