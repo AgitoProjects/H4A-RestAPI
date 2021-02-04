@@ -579,6 +579,17 @@
               "format": "int32",
               "nullable": true
             }
+          },
+          {
+            "name": "ViewerCustomerId",
+            "in": "query",
+            "description": "Kalan limit görüntülemesi yapan sigortalı numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Kalan limit görüntülemesi yapan sigortalı numarası",
+              "format": "int64",
+              "nullable": true
+            }
           }
         ],
         "responses": {
