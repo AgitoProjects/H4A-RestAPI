@@ -11,6 +11,140 @@
     }
   ],
   "paths": {
+    "/api/Agencies": {
+      "get": {
+        "tags": [
+          "Agencies"
+        ],
+        "summary": "Acente listeleme servisi.",
+        "description": "Verilen arama kriterleri için acente bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "AgencyId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "startdatebegin",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            }
+          },
+          {
+            "name": "startdateend",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "nullable": true
+            }
+          },
+          {
+            "name": "AgencyCode",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_AGENCY"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Agencies"
+        ],
+        "summary": "Acente oluşturma servisi.",
+        "description": "Acente oluşturma servisidir.",
+        "requestBody": {
+          "description": "Oluşturulmak istenen Acentenin bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgencyCreateRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgencyCreateRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AgencyCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Yeni oluşturulan Acdente bilgileri dönülür",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_AGENCY"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Agencies/{AgencyId}": {
+      "get": {
+        "tags": [
+          "Agencies"
+        ],
+        "summary": "Acente sorgulama servisi.",
+        "description": "Verilen acente kayıt numarası için Acente bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "AgencyId",
+            "in": "path",
+            "description": "Sorgulancak acente kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak acente kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_AGENCY"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/BankAccounts": {
       "post": {
         "tags": [
@@ -298,6 +432,94 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchProposals/{BatchProposalID}/persons": {
+      "post": {
+        "tags": [
+          "BatchProposals"
+        ],
+        "summary": "Ön Teklife kişi ekleme servisi.",
+        "description": "Verilen ön Teklif numarası için yeni kişi eklemek etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "BatchProposalID",
+            "in": "path",
+            "description": "Ön Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Ön Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Kişi bilgilieri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSALPERSON"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSALPERSON"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSALPERSON"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_BATCHPROPOSAL"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BatchProposals/{BatchProposalID}/authapply": {
+      "post": {
+        "tags": [
+          "BatchProposals"
+        ],
+        "summary": "Ön Teklife yetki onay servisi.",
+        "description": "Verilen ön Teklif numarası için onay vermek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "BatchProposalID",
+            "in": "path",
+            "description": "Ön Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Ön Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
                 }
               }
             }
@@ -1723,6 +1945,16 @@
                     "description": "Müşteri numarası. Bu bilgi iletilmez ise müşteri üzerinde tanımlı GSM e SMS atılır.",
                     "format": "int64",
                     "nullable": true
+                  },
+                  "SendBy": {
+                    "type": "string",
+                    "description": "Gönderim email üzerinden yapılmak isteniyorsa değer olarak 'email' gönderilelidir, aksi durumlarda gönderim SMS üzerinden yapılacaktır",
+                    "nullable": true
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "Telefon numarası dolu değilse, email üzerinden gönderim yapılması için kullanılacak email adresi.",
+                    "nullable": true
                   }
                 }
               },
@@ -1731,6 +1963,12 @@
                   "style": "form"
                 },
                 "PhoneNumber": {
+                  "style": "form"
+                },
+                "SendBy": {
+                  "style": "form"
+                },
+                "email": {
                   "style": "form"
                 }
               }
@@ -3000,6 +3238,17 @@
               "type": "integer",
               "description": "Sorgulancak poliçe kayıt numarası numarası",
               "format": "int64"
+            }
+          },
+          {
+            "name": "ShowOnlyCustomerId",
+            "in": "query",
+            "description": "Poliçe içindeki sigortalı listesi yerine teki bir sigortalının bilgilerinin gelmesi için kullanılacak parametre",
+            "schema": {
+              "type": "integer",
+              "description": "Poliçe içindeki sigortalı listesi yerine teki bir sigortalının bilgilerinin gelmesi için kullanılacak parametre",
+              "format": "int64",
+              "nullable": true
             }
           }
         ],
@@ -5149,6 +5398,151 @@
   },
   "components": {
     "schemas": {
+      "TYPE_REST_AGENCY": {
+        "type": "object",
+        "properties": {
+          "agencyid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "agencycode": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencyname": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencytypeid": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencytypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencygroupid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "agencygroupdesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "upperagencyid": {
+            "type": "string",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "enddate": {
+            "type": "string",
+            "nullable": true
+          },
+          "taxnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtoffice": {
+            "type": "string",
+            "nullable": true
+          },
+          "districtofficedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "fax": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityid": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationnumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "canceldate": {
+            "type": "string",
+            "nullable": true
+          },
+          "traderegisterno": {
+            "type": "string",
+            "nullable": true
+          },
+          "upperagencycode": {
+            "type": "string",
+            "nullable": true
+          },
+          "upperagencyname": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgencyCreateRequest": {
+        "type": "object",
+        "properties": {
+          "agencyCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "agencyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "taxNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "gsm": {
+            "type": "string",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "registrationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateBankAccountRequest": {
         "type": "object",
         "properties": {
@@ -6508,17 +6902,20 @@
             "type": "integer",
             "description": "Ülke kodu. \r\n<code>/H4AParams/Countries</code>\r\nservisinden dönen değerlerden biri olmalıdır. Türkiye için 211 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 211
           },
           "cityid": {
             "type": "integer",
             "description": "Şehir kodu. <code>/H4AParams/Cities</code>\r\nservisinden dönen değerlerden biri olmalıdır. İstanbul için 34 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 34
           },
           "provinceid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "phone1": {
             "type": "string",
@@ -6587,7 +6984,8 @@
           },
           "customerRF_Code": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -6620,15 +7018,18 @@
           },
           "countryid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "cityid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "provinceid": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "phone1": {
             "type": "string",
@@ -6697,7 +7098,8 @@
           },
           "customerRF_Code": {
             "type": "integer",
-            "format": "int64"
+            "format": "int64",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -7221,12 +7623,14 @@
             "type": "integer",
             "description": "Şehir kodu. <code>/H4AParams/Cities</code>\r\nservisinden dönen değerlerden biri olmalıdır. İstanbul için 34 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 34
           },
           "provinceid": {
             "type": "integer",
             "description": "İlçe kodu. <code>Province</code>servisinden dönen değerlerden biri olmalıdır. İstanbul için 34 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 2222
           },
           "phone1": {
@@ -7287,6 +7691,7 @@
             "type": "integer",
             "description": "Uyruk. <code>Nationalities</code> servisiden dönen değerlerden biri olamlıdır. Türkiye için 1.",
             "format": "int32",
+            "nullable": true,
             "example": 1
           },
           "relationtypeid": {
@@ -7299,6 +7704,7 @@
             "type": "integer",
             "description": "Entegre olan sistemdeki müşteri referans numarası. Müşteri yaratılıken gönderilen benzersiz numara. Bu numara üzerinden entegrasyon sağlanacaktır.",
             "format": "int64",
+            "nullable": true,
             "example": 12345
           },
           "lppd": {
@@ -9151,17 +9557,20 @@
           "totalpremium": {
             "type": "number",
             "description": "Brüt prim",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netpremium": {
             "type": "number",
             "description": "Net prim",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "netcommission": {
             "type": "number",
             "description": "Net komisyon",
-            "format": "float"
+            "format": "float",
+            "nullable": true
           },
           "productid": {
             "type": "integer",
