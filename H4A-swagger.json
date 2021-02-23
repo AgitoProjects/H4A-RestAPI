@@ -10840,6 +10840,12 @@
             "description": "Entegrasyon için kullanılan alandır. Referans teklif numarasıdır. bu değer aynı olduğu sürece yeni teklif yaratılmaz var olan teklif güncellenir.",
             "nullable": true
           },
+          "proposalstatusid": {
+            "type": "integer",
+            "description": "teklif durum açıklama değeri",
+            "format": "int32",
+            "nullable": true
+          },
           "proposalstatusdesc": {
             "type": "string",
             "description": "teklif durum açıklaması",
