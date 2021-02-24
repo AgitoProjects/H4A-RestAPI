@@ -5790,6 +5790,7 @@
           },
           "agencyid": {
             "type": "integer",
+            "description": "Teklifin yazılacağı Acente Kayıt numarası. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
             "format": "int64"
           },
           "productid": {
@@ -7355,6 +7356,19 @@
             "description": "Uyruk. <code>Nationalities</code> servisiden dönen değerlerden biri olamlıdır. Türkiye için 1.",
             "format": "int32",
             "example": 1
+          },
+          "occupationId": {
+            "type": "integer",
+            "description": "Meslek bilgisi değeri",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "occupationdesc": {
+            "type": "string",
+            "description": "Meslek bilgisi açıklama",
+            "nullable": true,
+            "example": "1"
           }
         },
         "additionalProperties": false,
@@ -7578,6 +7592,19 @@
             "type": "string",
             "description": "Medeni durum açıklaması",
             "nullable": true
+          },
+          "occupationId": {
+            "type": "integer",
+            "description": "Meslek bilgisi değeri",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "occupationdesc": {
+            "type": "string",
+            "description": "Meslek bilgisi açıklama",
+            "nullable": true,
+            "example": "1"
           }
         },
         "additionalProperties": false,
@@ -7710,6 +7737,13 @@
           "lppd": {
             "type": "integer",
             "description": "KVKK onayı olup olmadığı",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
+          },
+          "occupationId": {
+            "type": "integer",
+            "description": "Meslek bilgisi. <code>H4AParams/occupations</code> servsinden dönen kodlardan biri olmalıdır.",
             "format": "int32",
             "nullable": true,
             "example": 1
@@ -9672,6 +9706,44 @@
             },
             "description": "Acente komisyon hakediş listesi",
             "nullable": true
+          },
+          "policytypeid": {
+            "type": "integer",
+            "description": "Poliçe tipi. Bireysel:1, Grup:2",
+            "format": "int32",
+            "nullable": true
+          },
+          "policytypedesc": {
+            "type": "string",
+            "description": "Poliçe tipi açıklaması",
+            "nullable": true
+          },
+          "policyactive": {
+            "type": "integer",
+            "description": "Poliçe aktif mi, 0: pasif, 1: aktif",
+            "format": "int32",
+            "nullable": true
+          },
+          "productname": {
+            "type": "string",
+            "description": "Ürün adı",
+            "nullable": true
+          },
+          "productdesc": {
+            "type": "string",
+            "description": "Ürün açıklaması",
+            "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "description": "Acente kayıt numarası",
+            "format": "int64",
+            "nullable": true
+          },
+          "agencycode": {
+            "type": "string",
+            "description": "Acente kodu",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -9882,6 +9954,11 @@
       "PolicyCancelRequest": {
         "type": "object",
         "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
           "transactionDate": {
             "type": "string",
             "description": "İşlemin tanzim tarihi",
@@ -9915,6 +9992,11 @@
       "InsuredCancelRequest": {
         "type": "object",
         "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
           "transactionDate": {
             "type": "string",
             "format": "date-time"
@@ -9969,6 +10051,11 @@
       "PlanChangeEndorsomentRequest": {
         "type": "object",
         "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
           "newPlanId": {
             "type": "integer",
             "format": "int32"
@@ -10720,6 +10807,17 @@
             "description": "Seyehat poliçeleri için bölge kodu",
             "format": "int32",
             "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "description": "Teklifin yazılacağı Acente Kayıt numarası. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
+            "format": "int64",
+            "nullable": true
+          },
+          "agencycode": {
+            "type": "string",
+            "description": "Teklifin yazılacağı Acente Kodu. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -10945,6 +11043,17 @@
             "type": "number",
             "description": "Poliçe basımı için kullanılacak Döviz kuru",
             "format": "float",
+            "nullable": true
+          },
+          "agencyid": {
+            "type": "integer",
+            "description": "Teklifin yazılacağı Acente Kayıt numarası. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
+            "format": "int64",
+            "nullable": true
+          },
+          "agencycode": {
+            "type": "string",
+            "description": "Teklifin yazılacağı Acente Kodu. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
             "nullable": true
           }
         },
