@@ -7443,6 +7443,11 @@
             "description": "VKN numarası",
             "nullable": true,
             "example": "12345678901"
+          },
+          "birthdate": {
+            "type": "string",
+            "description": "Doğum tarihi",
+            "format": "date-time"
           }
         },
         "additionalProperties": false,
