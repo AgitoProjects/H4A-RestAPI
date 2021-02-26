@@ -680,7 +680,7 @@
             }
           },
           {
-            "name": "StatusId",
+            "name": "ClaimStatusId",
             "in": "query",
             "description": "Hasar durum numarası",
             "schema": {
