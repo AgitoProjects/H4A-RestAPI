@@ -11026,6 +11026,30 @@
             "description": "Zeyil numarası ile arama yapmak için",
             "format": "int32",
             "nullable": true
+          },
+          "searchPolicyStartDateStart": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchPolicyStartDateEnd": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchEndorsementValidDateStart": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchEndorsementValidDateEnd": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchEndorsementCreateDateStart": {
+            "type": "string",
+            "nullable": true
+          },
+          "searchEndorsementCreateDateEnd": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -11245,6 +11269,24 @@
               "$ref": "#/components/schemas/TYPE_REST_AGENCYCASHFLOW"
             },
             "description": "Acente komisyon hakediş listesi",
+            "nullable": true
+          },
+          "proposalid": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "planid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "sagmerid": {
+            "type": "string",
             "nullable": true
           }
         },
