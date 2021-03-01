@@ -2025,9 +2025,24 @@
                     "type": "string",
                     "nullable": true
                   },
-                  "Aciklama": {
+                  "DocumentTypeCode": {
                     "type": "string",
-                    "description": "deneme açıklama",
+                    "description": "Döküman Tip Kodu",
+                    "nullable": true
+                  },
+                  "Key1": {
+                    "type": "string",
+                    "description": "Anahtar alan 1",
+                    "nullable": true
+                  },
+                  "Key2": {
+                    "type": "string",
+                    "description": "Anahtar alan 2",
+                    "nullable": true
+                  },
+                  "Key3": {
+                    "type": "string",
+                    "description": "Anahtar alan 3",
                     "nullable": true
                   }
                 }
@@ -2051,7 +2066,16 @@
                 "FileName": {
                   "style": "form"
                 },
-                "Aciklama": {
+                "DocumentTypeCode": {
+                  "style": "form"
+                },
+                "Key1": {
+                  "style": "form"
+                },
+                "Key2": {
+                  "style": "form"
+                },
+                "Key3": {
                   "style": "form"
                 }
               }
@@ -2064,7 +2088,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DocumentInfo"
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
                 }
               }
             }
@@ -2098,6 +2122,30 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Document"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documents/DocumentTypes": {
+      "get": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Döküman tipi listesi",
+        "description": "Döküman tipi listesini elde etmek için kullanılacak kaynaktır.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DocumentTypes"
+                  }
                 }
               }
             }
@@ -3910,6 +3958,370 @@
         }
       }
     },
+    "/api/Policies/{PolicyId}/insureds/{CustomerID}/Documents": {
+      "get": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalının dökümanlarını elde etmek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalının dökümanlarını yüklemek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "DocumentTypeCode": {
+                    "type": "string",
+                    "description": "Döküman tip kodu",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "DocumentTypeCode": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyId}/insureds/{CustomerID}/Documents/{DocumentId}": {
+      "put": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalının dökümanlarını güncellemek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "DocumentId",
+            "in": "path",
+            "description": "Döküman Id si",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Döküman Id si",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "DocumentTypeCode": {
+                    "type": "string",
+                    "description": "Döküman tip kodu",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "DocumentTypeCode": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalının dökümanlarını silmek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "DocumentId",
+            "in": "path",
+            "description": "Döküman Id si",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Döküman Id si",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyId}/Documents": {
+      "get": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Poliçe içindeki tüm sigortalılar için döküman bilgilerini almak için kullanılan servistir.",
+        "parameters": [
+          {
+            "name": "PolicyId",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_PERSONDOCUMENTS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Prints": {
       "post": {
         "tags": [
@@ -5297,6 +5709,370 @@
         }
       }
     },
+    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Documents": {
+      "get": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Sigortalının dökümanlarını elde etmek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Sigortalının dökümanlarını yüklemek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "DocumentTypeCode": {
+                    "type": "string",
+                    "description": "Döküman tip kodu",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "DocumentTypeCode": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Documents/{DocumentId}": {
+      "put": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Sigortalının dökümanlarını güncellemek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "DocumentId",
+            "in": "path",
+            "description": "Döküman Id si",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Döküman Id si",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "DocumentTypeCode": {
+                    "type": "string",
+                    "description": "Döküman tip kodu",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                },
+                "DocumentTypeCode": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Sigortalının dökümanlarını silmek için kullanılan servistir",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Sigortalı numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sigortalı numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "DocumentId",
+            "in": "path",
+            "description": "Döküman Id si",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Döküman Id si",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Proposals/{ProposalID}/Documents": {
+      "get": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Teklif içindeki tüm sigortalılar için döküman bilgileirni almak için kullanılan servistir.",
+        "parameters": [
+          {
+            "name": "ProposalID",
+            "in": "path",
+            "description": "Teklif numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Teklif numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TYPE_REST_PERSONDOCUMENTS"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/SelfClaims": {
       "post": {
         "tags": [
@@ -5568,6 +6344,16 @@
             "type": "boolean",
             "description": "Var sayılan hesap bilgisi olarak işaretlensin mi",
             "example": true
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -5597,6 +6383,16 @@
             "type": "boolean",
             "description": "Var sayılan banka hesabı mı",
             "example": true
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -6987,6 +7783,16 @@
             "type": "integer",
             "format": "int64",
             "nullable": true
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -7100,6 +7906,16 @@
           "customerRF_Code": {
             "type": "integer",
             "format": "int64",
+            "nullable": true
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
             "nullable": true
           }
         },
@@ -7241,6 +8057,16 @@
             "description": "Telefon numarası. 18 yaş üstü bireysel sigortalılar için zorunludur. 5xxXXXxxXX fortmatında olmalıdır.",
             "nullable": true,
             "example": "5327773344"
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -7369,6 +8195,16 @@
             "description": "Meslek bilgisi açıklama",
             "nullable": true,
             "example": "1"
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -7448,6 +8284,16 @@
             "type": "string",
             "description": "Doğum tarihi",
             "format": "date-time"
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -7610,6 +8456,16 @@
             "description": "Meslek bilgisi açıklama",
             "nullable": true,
             "example": "1"
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -7752,6 +8608,16 @@
             "format": "int32",
             "nullable": true,
             "example": 1
+          },
+          "bankCustomertNumber": {
+            "type": "string",
+            "description": "Banka müşteri numarası",
+            "nullable": true
+          },
+          "bankAccountNumber": {
+            "type": "string",
+            "description": "Banka hesap numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8129,38 +8995,32 @@
         },
         "additionalProperties": false
       },
-      "DocumentInfo": {
+      "TYPE_REST_DOCUMENT": {
         "type": "object",
         "properties": {
-          "fileID": {
+          "documentid": {
             "type": "string",
-            "description": "Dokuman ID si",
+            "description": "Döküman ID si",
             "nullable": true
           },
-          "fileName": {
+          "documenttypecode": {
             "type": "string",
-            "description": "Dokuman adı",
+            "description": "Döküman tip kodu",
             "nullable": true
           },
-          "fileDataType": {
+          "documenttypedesc": {
             "type": "string",
-            "description": "dosya içeriğinin tipi",
+            "description": "Döküman tip açıklaması",
             "nullable": true
           },
-          "fileExtention": {
-            "type": "string",
-            "description": "dosya uzantısı",
-            "nullable": true
+          "isuploaded": {
+            "type": "boolean",
+            "description": "Döküman yüklendi mi"
           },
-          "fileDesc": {
+          "uploaddate": {
             "type": "string",
-            "description": "Dokuman açıklaması",
+            "description": "Döküman yükleme tarihi",
             "nullable": true
-          },
-          "fileSize": {
-            "type": "integer",
-            "description": "dosyanın boyutu",
-            "format": "int64"
           },
           "links": {
             "type": "array",
@@ -8170,7 +9030,8 @@
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Döküman bilgileri"
       },
       "Document": {
         "type": "object",
@@ -8200,9 +9061,50 @@
             "type": "integer",
             "description": "dosyanın boyutu",
             "format": "int64"
+          },
+          "documentid": {
+            "type": "string",
+            "description": "Döküman ID si",
+            "nullable": true
+          },
+          "documenttypecode": {
+            "type": "string",
+            "description": "Döküman tip kodu",
+            "nullable": true
+          },
+          "documenttypedesc": {
+            "type": "string",
+            "description": "Döküman tip açıklaması",
+            "nullable": true
+          },
+          "isuploaded": {
+            "type": "boolean",
+            "description": "Döküman yüklendi mi"
+          },
+          "uploaddate": {
+            "type": "string",
+            "description": "Döküman yükleme tarihi",
+            "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "DocumentTypes": {
+        "type": "object",
+        "properties": {
+          "documentTypeCode": {
+            "type": "string",
+            "description": "Döküman tip kodu",
+            "nullable": true
+          },
+          "documentTypeDesc": {
+            "type": "string",
+            "description": "Döküman tipi açıklaması",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Döküman tipleri"
       },
       "PolicyTypeResult": {
         "type": "object",
@@ -8484,10 +9386,10 @@
       "DocumentTypeResponse": {
         "type": "object",
         "properties": {
-          "documentTypeId": {
-            "type": "integer",
+          "documentTypeCode": {
+            "type": "string",
             "description": "Referans olarak kullanılacak döküman tipi değeri",
-            "format": "int32"
+            "nullable": true
           },
           "documentTypeDesc": {
             "type": "string",
@@ -10027,6 +10929,7 @@
         "properties": {
           "uwclause": {
             "type": "string",
+            "description": "Muafiyet/istisna metni",
             "nullable": true
           },
           "startdate": {
@@ -10051,7 +10954,8 @@
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": false,
+        "description": "Sigortalı muafiyetleri"
       },
       "PlanChangeEndorsomentRequest": {
         "type": "object",
@@ -10345,6 +11249,26 @@
           }
         },
         "additionalProperties": false
+      },
+      "TYPE_REST_PERSONDOCUMENTS": {
+        "type": "object",
+        "properties": {
+          "personid": {
+            "type": "integer",
+            "description": "sigortalı numarası",
+            "format": "int64"
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+            },
+            "description": "Döküman listesi",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigortalı dökümanları"
       },
       "PrintReportType": {
         "enum": [
@@ -11059,6 +11983,14 @@
           "agencycode": {
             "type": "string",
             "description": "Teklifin yazılacağı Acente Kodu. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
+            "nullable": true
+          },
+          "persondocuments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PERSONDOCUMENTS"
+            },
+            "description": "Sigoralıların döküman bilgileri",
             "nullable": true
           }
         },
