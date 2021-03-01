@@ -1504,6 +1504,14 @@
               "description": "müşteri vergi numarası",
               "nullable": true
             }
+          },
+          {
+            "name": "passportnumber",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
           }
         ],
         "responses": {
@@ -10999,7 +11007,7 @@
           },
           "insurerCustomerID": {
             "type": "integer",
-            "description": "Poliçe başlangıç tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "description": "Sigorta ettiren numarası ile arama",
             "format": "int64",
             "nullable": true
           },
@@ -11029,26 +11037,32 @@
           },
           "searchPolicyStartDateStart": {
             "type": "string",
+            "description": "Poliçe başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           },
           "searchPolicyStartDateEnd": {
             "type": "string",
+            "description": "Poliçe başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           },
           "searchEndorsementValidDateStart": {
             "type": "string",
+            "description": "Zeyil geçerlilik tarihi/ zeyil başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           },
           "searchEndorsementValidDateEnd": {
             "type": "string",
+            "description": "Zeyil geçerlilik tarihi/ zeyil  başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           },
           "searchEndorsementCreateDateStart": {
             "type": "string",
+            "description": "Zeyil oluşturma tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           },
           "searchEndorsementCreateDateEnd": {
             "type": "string",
+            "description": "Zeyil oluşturma tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
             "nullable": true
           }
         },
