@@ -8982,27 +8982,6 @@
         "additionalProperties": false,
         "description": "Müşterinin poliçe özet bilgileri"
       },
-      "Link": {
-        "type": "object",
-        "properties": {
-          "href": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "rel": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "type": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
       "TYPE_REST_DOCUMENT": {
         "type": "object",
         "properties": {
@@ -9028,13 +9007,6 @@
           "uploaddate": {
             "type": "string",
             "description": "Döküman yükleme tarihi",
-            "nullable": true
-          },
-          "links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            },
             "nullable": true
           }
         },
@@ -11909,6 +11881,41 @@
         "additionalProperties": false,
         "description": "Ödeme plnaı detay"
       },
+      "TYPE_REST_FACTORS": {
+        "type": "object",
+        "properties": {
+          "factorid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "factordesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "factorvalue": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_PROPOSALPERSONFCTRS": {
+        "type": "object",
+        "properties": {
+          "insuredcustomerid": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "factors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_FACTORS"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_PROPOSALRESPONSE": {
         "type": "object",
         "properties": {
@@ -12041,6 +12048,22 @@
             "description": "Teklifin yazılacağı Acente Kodu. AGENCYID ya da AGENCYCODE değerlerinden yalnızca biri dolu olmalıdır. AGENCYID dolu ise AGENCYCODE dikkate alınmaz.",
             "nullable": true
           },
+          "proposalfactors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_FACTORS"
+            },
+            "description": "Teklif indirim ve şarjmanları",
+            "nullable": true
+          },
+          "personfactors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PROPOSALPERSONFCTRS"
+            },
+            "description": "sigortalı üzerindeki indirim ve şarjmanlar",
+            "nullable": true
+          },
           "persondocuments": {
             "type": "array",
             "items": {
@@ -12052,41 +12075,6 @@
         },
         "additionalProperties": false,
         "description": "Teklif bilgileri"
-      },
-      "TYPE_REST_FACTORS": {
-        "type": "object",
-        "properties": {
-          "factorid": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "factordesc": {
-            "type": "string",
-            "nullable": true
-          },
-          "factorvalue": {
-            "type": "number",
-            "format": "float"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TYPE_REST_PROPOSALPERSONFCTRS": {
-        "type": "object",
-        "properties": {
-          "insuredcustomerid": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "factors": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TYPE_REST_FACTORS"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "TYPE_REST_PROPOSALFACTORS": {
         "type": "object",
