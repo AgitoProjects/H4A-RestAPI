@@ -3739,6 +3739,60 @@
         }
       }
     },
+    "/api/Policies/{PolicyID}/insureds/entry": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalı giriş zeyili oluşturma servisi",
+        "description": "Aktif bir poliçeye sigortalı girişi yapmak için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "Giriş yapılcak poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Giriş yapılcak poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Girişi yapılacak sigortalı bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_ENTRYREQUEST"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_ENTRYREQUEST"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_ENTRYREQUEST"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InsuredEntryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Policies/{PolicyID}/insureds/{CustomerID}/Exemptions": {
       "get": {
         "tags": [
@@ -8982,6 +9036,27 @@
         "additionalProperties": false,
         "description": "Müşterinin poliçe özet bilgileri"
       },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "rel": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_DOCUMENT": {
         "type": "object",
         "properties": {
@@ -9007,6 +9082,13 @@
           "uploaddate": {
             "type": "string",
             "description": "Döküman yükleme tarihi",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
             "nullable": true
           }
         },
@@ -10886,6 +10968,12 @@
           },
           "transactionDate": {
             "type": "string",
+            "description": "Zeyil tanzim tarihi.",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.",
             "format": "date-time"
           },
           "insuredCancelType": {
@@ -10895,6 +10983,95 @@
         "additionalProperties": false
       },
       "InsuredCancelResponse": {
+        "type": "object",
+        "properties": {
+          "changeNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_QUESTIONANSWER": {
+        "type": "object",
+        "properties": {
+          "questionid": {
+            "type": "integer",
+            "description": "Soru numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "answer": {
+            "type": "string",
+            "description": "Cevap. Maksimum 200 karakter olmalıdır",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sağlık beyanı ve risk sorularına verilen cevaplar için"
+      },
+      "TYPE_REST_PROPOSALPERSON": {
+        "type": "object",
+        "properties": {
+          "insuredcustomerid": {
+            "type": "integer",
+            "description": "Sigortalı kişi numarası",
+            "format": "int64"
+          },
+          "planid": {
+            "type": "integer",
+            "description": "plan numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "personrelationtype": {
+            "type": "integer",
+            "description": "Kişi yakınlık tipi. /api/H4AParams/RelationTypes dönen değerlerden biri olmalıdır. 1:Kendisi,2:Eşi,3:Çocuğu gibi",
+            "format": "int32",
+            "nullable": true
+          },
+          "questionanswers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_QUESTIONANSWER"
+            },
+            "description": "Sağlık beyanı ve risk sorularına verilen cevapların listesi",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Teklif içindeki sigortalılar"
+      },
+      "TYPE_REST_ENTRYREQUEST": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactiondate": {
+            "type": "string",
+            "description": "Zeyil tanzim tarihi. DD.MM.YYYY formatında",
+            "nullable": true
+          },
+          "validfrom": {
+            "type": "string",
+            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.  DD.MM.YYYY formatında",
+            "nullable": true
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PROPOSALPERSON"
+            },
+            "description": "Girişi yapılacak sigortalılar",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InsuredEntryResponse": {
         "type": "object",
         "properties": {
           "changeNumber": {
@@ -11648,56 +11825,6 @@
         },
         "additionalProperties": false,
         "description": "Risk Soruları"
-      },
-      "TYPE_REST_QUESTIONANSWER": {
-        "type": "object",
-        "properties": {
-          "questionid": {
-            "type": "integer",
-            "description": "Soru numarası",
-            "format": "int32",
-            "nullable": true
-          },
-          "answer": {
-            "type": "string",
-            "description": "Cevap. Maksimum 200 karakter olmalıdır",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Sağlık beyanı ve risk sorularına verilen cevaplar için"
-      },
-      "TYPE_REST_PROPOSALPERSON": {
-        "type": "object",
-        "properties": {
-          "insuredcustomerid": {
-            "type": "integer",
-            "description": "Sigortalı kişi numarası",
-            "format": "int64"
-          },
-          "planid": {
-            "type": "integer",
-            "description": "plan numarası",
-            "format": "int32",
-            "nullable": true
-          },
-          "personrelationtype": {
-            "type": "integer",
-            "description": "Kişi yakınlık tipi. /api/H4AParams/RelationTypes dönen değerlerden biri olmalıdır. 1:Kendisi,2:Eşi,3:Çocuğu gibi",
-            "format": "int32",
-            "nullable": true
-          },
-          "questionanswers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TYPE_REST_QUESTIONANSWER"
-            },
-            "description": "Sağlık beyanı ve risk sorularına verilen cevapların listesi",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Teklif içindeki sigortalılar"
       },
       "TYPE_REST_PROPOSAL": {
         "type": "object",
