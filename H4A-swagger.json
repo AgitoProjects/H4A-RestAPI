@@ -8479,10 +8479,10 @@
             "example": 1
           },
           "customerrfcode": {
-            "type": "integer",
+            "type": "string",
             "description": "Entegre olan sistemdeki müşteri referans numarası. Müşteri yaratılıken gönderilen benzersiz numara. Bu numara üzerinden entegrasyon sağlanacaktır.",
-            "format": "int64",
-            "example": 12345
+            "nullable": true,
+            "example": "12345"
           },
           "genderId": {
             "type": "integer",
@@ -8651,11 +8651,10 @@
             "example": 1
           },
           "customerrfcode": {
-            "type": "integer",
+            "type": "string",
             "description": "Entegre olan sistemdeki müşteri referans numarası. Müşteri yaratılıken gönderilen benzersiz numara. Bu numara üzerinden entegrasyon sağlanacaktır.",
-            "format": "int64",
             "nullable": true,
-            "example": 12345
+            "example": "12345"
           },
           "lppd": {
             "type": "integer",
@@ -10170,6 +10169,18 @@
         "additionalProperties": false,
         "description": "müşteri bilgileri"
       },
+      "TYPE_REST_PERSONEXEMPTION": {
+        "type": "object",
+        "properties": {
+          "uwclause": {
+            "type": "string",
+            "description": "istisna metni",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigortalı istisnaları"
+      },
       "TYPE_REST_POLICYPERSONSUMMARY": {
         "type": "object",
         "properties": {
@@ -10233,6 +10244,14 @@
             "type": "number",
             "description": "Döviz kuru",
             "format": "float",
+            "nullable": true
+          },
+          "personexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PERSONEXEMPTION"
+            },
+            "description": "Sigortalı istisna metinleri",
             "nullable": true
           }
         },
@@ -11951,6 +11970,14 @@
             "type": "number",
             "description": "net prim, Döviz kodu cinsinden",
             "format": "float",
+            "nullable": true
+          },
+          "personexemptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PERSONEXEMPTION"
+            },
+            "description": "Sigortalı istisna metinleri",
             "nullable": true
           }
         },
