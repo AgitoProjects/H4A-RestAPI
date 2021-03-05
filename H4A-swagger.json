@@ -8554,6 +8554,7 @@
             "type": "integer",
             "description": "Cinsiyet. <code>Genders</code> servisinden dönen değerlerden biri olmalıdır. Erkek için1; Kadın için 2 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 1
           },
           "address": {
@@ -8567,6 +8568,7 @@
             "type": "integer",
             "description": "Ülke kodu. \r\n<code>/H4AParams/Countries</code>\r\nservisinden dönen değerlerden biri olmalıdır. Türkiye için 211 değeri girilmelidir.",
             "format": "int32",
+            "nullable": true,
             "example": 211
           },
           "cityid": {
@@ -8648,6 +8650,7 @@
             "type": "integer",
             "description": "Yakınlık tipi. <code>RelationTypes</code>  servisiden dönen değerlerden biri olamlıdır. Kendisi için 1.\r\n\r\n1:Kendisi, 2:Eşi,3:Çocuğu ...",
             "format": "int32",
+            "nullable": true,
             "example": 1
           },
           "customerrfcode": {
