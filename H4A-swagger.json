@@ -2104,17 +2104,131 @@
         }
       }
     },
-    "/api/Documents/{DocumentId}": {
+    "/api/Documents/puwsr/{puwsrid}/{controlid}": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "özel amaçlı döküman yükleme servisi",
+        "description": "sigortalı eksik evrak yüklemek için kullanılan servistir.",
+        "parameters": [
+          {
+            "name": "puwsrid",
+            "in": "path",
+            "description": "yükelenecek dosya referans numarası. bu bilgi size verilmiş olması gereklidir.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "yükelenecek dosya referans numarası. bu bilgi size verilmiş olması gereklidir.",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "controlid",
+            "in": "path",
+            "description": "veri kontrol değeri. bu bilgi size verilmiş olması gereklidir.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "veri kontrol değeri. bu bilgi size verilmiş olması gereklidir.",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ContentType": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "ContentDisposition": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "Headers": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "nullable": true
+                  },
+                  "Length": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "Name": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "FileName": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                }
+              },
+              "encoding": {
+                "ContentType": {
+                  "style": "form"
+                },
+                "ContentDisposition": {
+                  "style": "form"
+                },
+                "Headers": {
+                  "style": "form"
+                },
+                "Length": {
+                  "style": "form"
+                },
+                "Name": {
+                  "style": "form"
+                },
+                "FileName": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documents/{DocumentId}/{ControlId}": {
       "get": {
         "tags": [
           "Documents"
         ],
         "summary": "döküman indirme servisi",
         "description": "Verilen bilgiler ile döküman indirmek için kullanılan servistir.",
-        "operationId": "GetDocument",
         "parameters": [
           {
             "name": "DocumentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "ControlId",
             "in": "path",
             "required": true,
             "schema": {
@@ -9086,6 +9200,11 @@
             "description": "Döküman yükleme tarihi",
             "nullable": true
           },
+          "controlnumber": {
+            "type": "string",
+            "description": "döküman kontrol numarası. sadece talep edilen dökümanın geçerli bir talep olup olmadığını kontrol etmek için kullanılır.",
+            "nullable": true
+          },
           "links": {
             "type": "array",
             "items": {
@@ -9148,6 +9267,11 @@
           "uploaddate": {
             "type": "string",
             "description": "Döküman yükleme tarihi",
+            "nullable": true
+          },
+          "controlnumber": {
+            "type": "string",
+            "description": "döküman kontrol numarası. sadece talep edilen dökümanın geçerli bir talep olup olmadığını kontrol etmek için kullanılır.",
             "nullable": true
           }
         },
