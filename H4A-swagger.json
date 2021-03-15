@@ -3845,7 +3845,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InsuredCancelResponse"
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
                 }
               }
             }
@@ -3899,7 +3899,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InsuredEntryResponse"
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
                 }
               }
             }
@@ -3970,7 +3970,7 @@
           }
         ],
         "requestBody": {
-          "description": "çıkış yapma giriş parametreleri",
+          "description": "plan değişiklik giriş parametreleri",
           "content": {
             "application/json": {
               "schema": {
@@ -3995,10 +3995,60 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGE"
-                  }
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/Endorsements/apply": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "İnceleme durumuna düşmüş zeyilleri tanzim etmek için",
+        "description": "İnceleme durumuna düşmüş zeyilleri tanzim etmek için  kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyEndorsomentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyEndorsomentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyEndorsomentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
                 }
               }
             }
@@ -11128,242 +11178,6 @@
         },
         "additionalProperties": false
       },
-      "InsuredCancelResponse": {
-        "type": "object",
-        "properties": {
-          "changeNumber": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TYPE_REST_QUESTIONANSWER": {
-        "type": "object",
-        "properties": {
-          "questionid": {
-            "type": "integer",
-            "description": "Soru numarası",
-            "format": "int32",
-            "nullable": true
-          },
-          "answer": {
-            "type": "string",
-            "description": "Cevap. Maksimum 200 karakter olmalıdır",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Sağlık beyanı ve risk sorularına verilen cevaplar için"
-      },
-      "TYPE_REST_PROPOSALPERSON": {
-        "type": "object",
-        "properties": {
-          "insuredcustomerid": {
-            "type": "integer",
-            "description": "Sigortalı kişi numarası",
-            "format": "int64"
-          },
-          "planid": {
-            "type": "integer",
-            "description": "plan numarası",
-            "format": "int32",
-            "nullable": true
-          },
-          "personrelationtype": {
-            "type": "integer",
-            "description": "Kişi yakınlık tipi. /api/H4AParams/RelationTypes dönen değerlerden biri olmalıdır. 1:Kendisi,2:Eşi,3:Çocuğu gibi",
-            "format": "int32",
-            "nullable": true
-          },
-          "questionanswers": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TYPE_REST_QUESTIONANSWER"
-            },
-            "description": "Sağlık beyanı ve risk sorularına verilen cevapların listesi",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Teklif içindeki sigortalılar"
-      },
-      "TYPE_REST_ENTRYREQUEST": {
-        "type": "object",
-        "properties": {
-          "test": {
-            "type": "integer",
-            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
-            "format": "int32"
-          },
-          "transactiondate": {
-            "type": "string",
-            "description": "Zeyil tanzim tarihi. DD.MM.YYYY formatında",
-            "nullable": true
-          },
-          "validfrom": {
-            "type": "string",
-            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.  DD.MM.YYYY formatında",
-            "nullable": true
-          },
-          "persons": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TYPE_REST_PROPOSALPERSON"
-            },
-            "description": "Girişi yapılacak sigortalılar",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "InsuredEntryResponse": {
-        "type": "object",
-        "properties": {
-          "changeNumber": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "PersonExemptions": {
-        "type": "object",
-        "properties": {
-          "uwclause": {
-            "type": "string",
-            "description": "Muafiyet/istisna metni",
-            "nullable": true
-          },
-          "startdate": {
-            "type": "string",
-            "nullable": true
-          },
-          "enddate": {
-            "type": "string",
-            "nullable": true
-          },
-          "exemptiontypedesc": {
-            "type": "string",
-            "nullable": true
-          },
-          "limitvalue": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "diagnosisdesc": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Sigortalı muafiyetleri"
-      },
-      "PlanChangeEndorsomentRequest": {
-        "type": "object",
-        "properties": {
-          "test": {
-            "type": "integer",
-            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
-            "format": "int32"
-          },
-          "newPlanId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "customerId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "transactionDate": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "validFrom": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "EndorsementReportSearchRequest": {
-        "type": "object",
-        "properties": {
-          "searchTransactionDateStart": {
-            "type": "string",
-            "description": "Tanzim tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchTransactionDateEnd": {
-            "type": "string",
-            "description": "Tanzim tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "insurerCustomerID": {
-            "type": "integer",
-            "description": "Sigorta ettiren numarası ile arama",
-            "format": "int64",
-            "nullable": true
-          },
-          "policyId": {
-            "type": "integer",
-            "description": "Sigorta ettiren TCKN si ile arama",
-            "format": "int64",
-            "nullable": true
-          },
-          "policyNumber": {
-            "type": "integer",
-            "description": "Poliçe numarası",
-            "format": "int64",
-            "nullable": true
-          },
-          "policyOrder": {
-            "type": "integer",
-            "description": "Poliçe sıra numarası, poliçe yenileme numarası",
-            "format": "int32",
-            "nullable": true
-          },
-          "changeNumber": {
-            "type": "integer",
-            "description": "Zeyil numarası ile arama yapmak için",
-            "format": "int32",
-            "nullable": true
-          },
-          "searchPolicyStartDateStart": {
-            "type": "string",
-            "description": "Poliçe başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchPolicyStartDateEnd": {
-            "type": "string",
-            "description": "Poliçe başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchEndorsementValidDateStart": {
-            "type": "string",
-            "description": "Zeyil geçerlilik tarihi/ zeyil başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchEndorsementValidDateEnd": {
-            "type": "string",
-            "description": "Zeyil geçerlilik tarihi/ zeyil  başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchEndorsementCreateDateStart": {
-            "type": "string",
-            "description": "Zeyil oluşturma tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          },
-          "searchEndorsementCreateDateEnd": {
-            "type": "string",
-            "description": "Zeyil oluşturma tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Poliçe Zeyil Raporu arama kirterleri"
-      },
       "TYPE_REST_PCR_PERSON": {
         "type": "object",
         "properties": {
@@ -11600,6 +11414,261 @@
           }
         },
         "additionalProperties": false
+      },
+      "TYPE_REST_ENDORSEMENTRESPONSE": {
+        "type": "object",
+        "properties": {
+          "endorsementstatusid": {
+            "type": "integer",
+            "description": "1: Tanzim edildi, 0 : İncelemede",
+            "format": "int32"
+          },
+          "endorsementstatusdesc": {
+            "type": "string",
+            "description": "1: Tanzim edildi, 0 : İncelemede",
+            "nullable": true
+          },
+          "endorsement": {
+            "$ref": "#/components/schemas/TYPE_REST_POLICYCHANGEREPORT"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Zeyil oluşturma sonuç bilgileri"
+      },
+      "TYPE_REST_QUESTIONANSWER": {
+        "type": "object",
+        "properties": {
+          "questionid": {
+            "type": "integer",
+            "description": "Soru numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "answer": {
+            "type": "string",
+            "description": "Cevap. Maksimum 200 karakter olmalıdır",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sağlık beyanı ve risk sorularına verilen cevaplar için"
+      },
+      "TYPE_REST_PROPOSALPERSON": {
+        "type": "object",
+        "properties": {
+          "insuredcustomerid": {
+            "type": "integer",
+            "description": "Sigortalı kişi numarası",
+            "format": "int64"
+          },
+          "planid": {
+            "type": "integer",
+            "description": "plan numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "personrelationtype": {
+            "type": "integer",
+            "description": "Kişi yakınlık tipi. /api/H4AParams/RelationTypes dönen değerlerden biri olmalıdır. 1:Kendisi,2:Eşi,3:Çocuğu gibi",
+            "format": "int32",
+            "nullable": true
+          },
+          "questionanswers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_QUESTIONANSWER"
+            },
+            "description": "Sağlık beyanı ve risk sorularına verilen cevapların listesi",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Teklif içindeki sigortalılar"
+      },
+      "TYPE_REST_ENTRYREQUEST": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactiondate": {
+            "type": "string",
+            "description": "Zeyil tanzim tarihi. DD.MM.YYYY formatında",
+            "nullable": true
+          },
+          "validfrom": {
+            "type": "string",
+            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.  DD.MM.YYYY formatında",
+            "nullable": true
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PROPOSALPERSON"
+            },
+            "description": "Girişi yapılacak sigortalılar",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PersonExemptions": {
+        "type": "object",
+        "properties": {
+          "uwclause": {
+            "type": "string",
+            "description": "Muafiyet/istisna metni",
+            "nullable": true
+          },
+          "startdate": {
+            "type": "string",
+            "nullable": true
+          },
+          "enddate": {
+            "type": "string",
+            "nullable": true
+          },
+          "exemptiontypedesc": {
+            "type": "string",
+            "nullable": true
+          },
+          "limitvalue": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "diagnosisdesc": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigortalı muafiyetleri"
+      },
+      "PlanChangeEndorsomentRequest": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "newPlanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApplyEndorsomentRequest": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EndorsementReportSearchRequest": {
+        "type": "object",
+        "properties": {
+          "searchTransactionDateStart": {
+            "type": "string",
+            "description": "Tanzim tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchTransactionDateEnd": {
+            "type": "string",
+            "description": "Tanzim tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "insurerCustomerID": {
+            "type": "integer",
+            "description": "Sigorta ettiren numarası ile arama",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyId": {
+            "type": "integer",
+            "description": "Sigorta ettiren TCKN si ile arama",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyNumber": {
+            "type": "integer",
+            "description": "Poliçe numarası",
+            "format": "int64",
+            "nullable": true
+          },
+          "policyOrder": {
+            "type": "integer",
+            "description": "Poliçe sıra numarası, poliçe yenileme numarası",
+            "format": "int32",
+            "nullable": true
+          },
+          "changeNumber": {
+            "type": "integer",
+            "description": "Zeyil numarası ile arama yapmak için",
+            "format": "int32",
+            "nullable": true
+          },
+          "searchPolicyStartDateStart": {
+            "type": "string",
+            "description": "Poliçe başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchPolicyStartDateEnd": {
+            "type": "string",
+            "description": "Poliçe başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchEndorsementValidDateStart": {
+            "type": "string",
+            "description": "Zeyil geçerlilik tarihi/ zeyil başlama tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchEndorsementValidDateEnd": {
+            "type": "string",
+            "description": "Zeyil geçerlilik tarihi/ zeyil  başlama tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchEndorsementCreateDateStart": {
+            "type": "string",
+            "description": "Zeyil oluşturma tarihi ile arama başlangıç tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "searchEndorsementCreateDateEnd": {
+            "type": "string",
+            "description": "Zeyil oluşturma tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Poliçe Zeyil Raporu arama kirterleri"
       },
       "TYPE_REST_PERSONDOCUMENTS": {
         "type": "object",
@@ -12197,6 +12266,43 @@
         },
         "additionalProperties": false
       },
+      "TYPE_REST_PREMIUMCOMPONENT": {
+        "type": "object",
+        "properties": {
+          "componentid": {
+            "type": "integer",
+            "description": "Bileşen numarası",
+            "format": "int32"
+          },
+          "componentdesc": {
+            "type": "string",
+            "description": "Bileşen açıklaması",
+            "nullable": true
+          },
+          "premiumcomponentcategoryid": {
+            "type": "integer",
+            "description": "Bileşen kategori numarası",
+            "format": "int32"
+          },
+          "premiumcomponentcategorydesc": {
+            "type": "string",
+            "description": "Bileşen kategori açıklaması",
+            "nullable": true
+          },
+          "premium": {
+            "type": "number",
+            "description": "Bileşen primi",
+            "format": "float"
+          },
+          "tax": {
+            "type": "number",
+            "description": "Bileşen vergisi",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Prim bileşenleri"
+      },
       "TYPE_REST_PROPOSALRESPONSE": {
         "type": "object",
         "properties": {
@@ -12351,6 +12457,14 @@
               "$ref": "#/components/schemas/TYPE_REST_PERSONDOCUMENTS"
             },
             "description": "Sigoralıların döküman bilgileri",
+            "nullable": true
+          },
+          "premiumcomponent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PREMIUMCOMPONENT"
+            },
+            "description": "prim bileşenleri",
             "nullable": true
           }
         },
