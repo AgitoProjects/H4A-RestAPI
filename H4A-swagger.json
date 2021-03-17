@@ -8520,6 +8520,13 @@
             "type": "string",
             "description": "Banka hesap numarası",
             "nullable": true
+          },
+          "lppd": {
+            "type": "integer",
+            "description": "KVKK onayı olup olmadığı",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
           }
         },
         "additionalProperties": false,
@@ -8691,6 +8698,12 @@
           "bankAccountNumber": {
             "type": "string",
             "description": "Banka hesap numarası",
+            "nullable": true
+          },
+          "lppd": {
+            "type": "integer",
+            "description": "KVKK onayı bilgisi",
+            "format": "int32",
             "nullable": true
           }
         },
