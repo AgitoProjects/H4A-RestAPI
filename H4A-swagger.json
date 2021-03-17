@@ -12591,6 +12591,13 @@
             "description": "Ödeme tipi banka ise hangi banka hesabının kullanılacağını tutmak için kullanılır",
             "format": "int64",
             "nullable": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "description": "Poliçeleşmenin yapılacağı Ödeme tipi",
+            "format": "int32",
+            "nullable": true,
+            "example": 1
           }
         },
         "additionalProperties": false
