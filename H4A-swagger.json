@@ -12472,7 +12472,7 @@
             "description": "Sigoralıların döküman bilgileri",
             "nullable": true
           },
-          "premiumcomponent": {
+          "premiumcomponents": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TYPE_REST_PREMIUMCOMPONENT"
