@@ -11133,7 +11133,7 @@
           },
           "validFrom": {
             "type": "string",
-            "description": "Çıkış zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
+            "description": "Zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
             "format": "date-time"
           }
         },
@@ -11543,13 +11543,13 @@
           },
           "transactiondate": {
             "type": "string",
-            "description": "Zeyil tanzim tarihi. DD.MM.YYYY formatında",
-            "nullable": true
+            "description": "İşlemin tanzim tarihi",
+            "format": "date-time"
           },
           "validfrom": {
             "type": "string",
-            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.  DD.MM.YYYY formatında",
-            "nullable": true
+            "description": "Zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
+            "format": "date-time"
           },
           "persons": {
             "type": "array",
