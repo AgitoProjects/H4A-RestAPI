@@ -3780,7 +3780,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PolicyCancelResponse"
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
                 }
               }
             }
@@ -11154,43 +11154,6 @@
         "additionalProperties": false,
         "description": "Poliçe iptal talebi bilgileri"
       },
-      "PolicyCancelResponse": {
-        "type": "object",
-        "properties": {
-          "isSuccessfull": {
-            "type": "boolean"
-          },
-          "endorsementNo": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "InsuredCancelRequest": {
-        "type": "object",
-        "properties": {
-          "test": {
-            "type": "integer",
-            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
-            "format": "int32"
-          },
-          "transactionDate": {
-            "type": "string",
-            "description": "Zeyil tanzim tarihi.",
-            "format": "date-time"
-          },
-          "validFrom": {
-            "type": "string",
-            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.",
-            "format": "date-time"
-          },
-          "insuredCancelType": {
-            "$ref": "#/components/schemas/PolicyCancelType"
-          }
-        },
-        "additionalProperties": false
-      },
       "TYPE_REST_PCR_PERSON": {
         "type": "object",
         "properties": {
@@ -11447,6 +11410,30 @@
         },
         "additionalProperties": false,
         "description": "Zeyil oluşturma sonuç bilgileri"
+      },
+      "InsuredCancelRequest": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactionDate": {
+            "type": "string",
+            "description": "Zeyil tanzim tarihi.",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "description": "Zeyilin geçerlilik tarihi. Zeyil başlangıç tarihi.",
+            "format": "date-time"
+          },
+          "insuredCancelType": {
+            "$ref": "#/components/schemas/PolicyCancelType"
+          }
+        },
+        "additionalProperties": false
       },
       "TYPE_REST_QUESTIONANSWER": {
         "type": "object",
