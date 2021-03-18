@@ -11118,17 +11118,6 @@
         "additionalProperties": false,
         "description": "Poliçe ödeme bilgileri"
       },
-      "PolicyCancelType": {
-        "enum": [
-          1,
-          2,
-          3,
-          5
-        ],
-        "type": "integer",
-        "description": "Poliçe iptal tipleri\r\n<list type=\"bullet\"><item> PolicyCancelAll = 1,</item><item>PolicyCancelNoPremium = 2,</item><item>PolicyCancelDayBase = 3,</item><item>PolicyCancelBalance = 5</item></list>",
-        "format": "int32"
-      },
       "PolicyCancelRequest": {
         "type": "object",
         "properties": {
@@ -11146,9 +11135,6 @@
             "type": "string",
             "description": "Çıkış zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
             "format": "date-time"
-          },
-          "policyCancelType": {
-            "$ref": "#/components/schemas/PolicyCancelType"
           }
         },
         "additionalProperties": false,
@@ -11461,6 +11447,17 @@
         },
         "additionalProperties": false,
         "description": "Zeyil oluşturma sonuç bilgileri"
+      },
+      "PolicyCancelType": {
+        "enum": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "type": "integer",
+        "description": "Poliçe iptal tipleri\r\n<list type=\"bullet\"><item> PolicyCancelAll = 1,</item><item>PolicyCancelNoPremium = 2,</item><item>PolicyCancelDayBase = 3,</item><item>PolicyCancelBalance = 5</item></list>",
+        "format": "int32"
       },
       "InsuredCancelRequest": {
         "type": "object",
