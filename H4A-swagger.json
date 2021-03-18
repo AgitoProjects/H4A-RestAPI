@@ -11220,6 +11220,43 @@
         },
         "additionalProperties": false
       },
+      "TYPE_REST_PREMIUMCOMPONENT": {
+        "type": "object",
+        "properties": {
+          "componentid": {
+            "type": "integer",
+            "description": "Bileşen numarası",
+            "format": "int32"
+          },
+          "componentdesc": {
+            "type": "string",
+            "description": "Bileşen açıklaması",
+            "nullable": true
+          },
+          "premiumcomponentcategoryid": {
+            "type": "integer",
+            "description": "Bileşen kategori numarası",
+            "format": "int32"
+          },
+          "premiumcomponentcategorydesc": {
+            "type": "string",
+            "description": "Bileşen kategori açıklaması",
+            "nullable": true
+          },
+          "premium": {
+            "type": "number",
+            "description": "Bileşen primi",
+            "format": "float"
+          },
+          "tax": {
+            "type": "number",
+            "description": "Bileşen vergisi",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Prim bileşenleri"
+      },
       "TYPE_REST_POLICYCHANGEREPORT": {
         "type": "object",
         "properties": {
@@ -11386,6 +11423,20 @@
           },
           "sagmerid": {
             "type": "string",
+            "nullable": true
+          },
+          "policycanceltypeid": {
+            "type": "integer",
+            "description": "iptal tipi",
+            "format": "int32",
+            "nullable": true
+          },
+          "premiumcomponents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PREMIUMCOMPONENT"
+            },
+            "description": "prim bileşenleri",
             "nullable": true
           }
         },
@@ -12265,43 +12316,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "TYPE_REST_PREMIUMCOMPONENT": {
-        "type": "object",
-        "properties": {
-          "componentid": {
-            "type": "integer",
-            "description": "Bileşen numarası",
-            "format": "int32"
-          },
-          "componentdesc": {
-            "type": "string",
-            "description": "Bileşen açıklaması",
-            "nullable": true
-          },
-          "premiumcomponentcategoryid": {
-            "type": "integer",
-            "description": "Bileşen kategori numarası",
-            "format": "int32"
-          },
-          "premiumcomponentcategorydesc": {
-            "type": "string",
-            "description": "Bileşen kategori açıklaması",
-            "nullable": true
-          },
-          "premium": {
-            "type": "number",
-            "description": "Bileşen primi",
-            "format": "float"
-          },
-          "tax": {
-            "type": "number",
-            "description": "Bileşen vergisi",
-            "format": "float"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Prim bileşenleri"
       },
       "TYPE_REST_PROPOSALRESPONSE": {
         "type": "object",
