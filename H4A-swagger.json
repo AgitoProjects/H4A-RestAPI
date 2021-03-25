@@ -8527,6 +8527,12 @@
             "format": "int32",
             "nullable": true,
             "example": 1
+          },
+          "blackList": {
+            "type": "integer",
+            "description": "Müşterinin kara listede olup olmadığı bilgisi",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8705,6 +8711,12 @@
             "description": "KVKK onayı bilgisi",
             "format": "int32",
             "nullable": true
+          },
+          "blackList": {
+            "type": "integer",
+            "description": "Müşterinin kara listede olup olmadığı bilgisi",
+            "format": "int32",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8842,6 +8854,12 @@
             "format": "int32",
             "nullable": true,
             "example": 1
+          },
+          "blackList": {
+            "type": "integer",
+            "description": "Müşterinin kara listede olup olmadığı bilgisi",
+            "format": "int32",
+            "nullable": true
           },
           "occupationId": {
             "type": "integer",
