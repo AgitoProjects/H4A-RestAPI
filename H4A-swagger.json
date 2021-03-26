@@ -9402,7 +9402,7 @@
           },
           "cityName": {
             "type": "string",
-            "description": "Şehir adı",
+            "description": "Şehir adı bilgisi",
             "nullable": true
           }
         },
