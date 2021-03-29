@@ -2854,6 +2854,28 @@
               "format": "int32",
               "nullable": true
             }
+          },
+          {
+            "name": "PolicyId",
+            "in": "query",
+            "description": "Anlaşmalı kurum aranan Poliçe kayıt numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Anlaşmalı kurum aranan Poliçe kayıt numarası",
+              "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "CustomerId",
+            "in": "query",
+            "description": "Anlaşmalı kurum aranan Sigortalı numarası",
+            "schema": {
+              "type": "integer",
+              "description": "Anlaşmalı kurum aranan Sigortalı numarası",
+              "format": "int64",
+              "nullable": true
+            }
           }
         ],
         "responses": {
