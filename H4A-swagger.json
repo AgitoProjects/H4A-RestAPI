@@ -11483,18 +11483,40 @@
             "type": "string",
             "nullable": true
           },
-          "policycanceltypeid": {
-            "type": "integer",
-            "description": "iptal tipi",
-            "format": "int32",
-            "nullable": true
-          },
           "premiumcomponents": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TYPE_REST_PREMIUMCOMPONENT"
             },
             "description": "prim bileşenleri",
+            "nullable": true
+          },
+          "policycanceltypeid": {
+            "type": "integer",
+            "description": "iptal tipi",
+            "format": "int32",
+            "nullable": true
+          },
+          "policycanceltypedesc": {
+            "type": "string",
+            "description": "iptal tipi açıklaması",
+            "nullable": true
+          },
+          "policypremiumcurrency": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılcacak dövizli poliçe primi",
+            "format": "float",
+            "nullable": true
+          },
+          "policycurrencycode": {
+            "type": "string",
+            "description": "Poliçe basımı için kullanılacak Döviz tipi",
+            "nullable": true
+          },
+          "policycurrencyrate": {
+            "type": "number",
+            "description": "Poliçe basımı için kullanılacak Döviz kuru",
+            "format": "float",
             "nullable": true
           }
         },
