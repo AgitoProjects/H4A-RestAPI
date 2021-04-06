@@ -10893,15 +10893,13 @@
             "format": "float",
             "nullable": true
           },
-          "netpremiumcurrency": {
+          "totalnetpremiumcurrency": {
             "type": "number",
-            "description": "Net prim, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
-          "netcommissioncurrency": {
+          "totalnetcommissioncurrency": {
             "type": "number",
-            "description": "Net komisyon, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
