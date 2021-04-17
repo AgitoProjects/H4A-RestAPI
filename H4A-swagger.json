@@ -11829,7 +11829,8 @@
           8,
           9,
           10,
-          11
+          11,
+          12
         ],
         "type": "integer",
         "description": "Hangi formun basılacağı belirtmek için kullanılan enum.\r\n<list type=\"bullet\"><item>teklif formu Türkçe : 1</item><item>poliçe basımı : 2</item><item>Sertifika basımı : 3</item><item>Zeyil Basımı : 4</item><item>Bilgilendirme formu : 5</item><item>Diğer: 7</item></list>",
@@ -12303,20 +12304,17 @@
             "description": "Sigortalı istisna metinleri",
             "nullable": true
           },
-          "uwStatusId": {
+          "uwstatusid": {
             "type": "integer",
-            "description": "UW durumu. 0:İnceleme,1:Onay,2:RED,3:Evrak Bekleniyor",
             "format": "int32",
             "nullable": true
           },
-          "uwStatusDesc": {
+          "uwstatusdesc": {
             "type": "string",
-            "description": "UW Durum açıklaması",
             "nullable": true
           },
-          "uwStatusReasonDesc": {
+          "uwstatusreasondesc": {
             "type": "string",
-            "description": "UW Durum nedeni açıklaması",
             "nullable": true
           }
         },
@@ -12573,9 +12571,8 @@
             "description": "prim bileşenleri",
             "nullable": true
           },
-          "uwStatusReasonDesc": {
+          "uwstatusreasondesc": {
             "type": "string",
-            "description": "UW Durum nedeni açıklaması",
             "nullable": true
           }
         },
