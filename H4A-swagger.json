@@ -1990,6 +1990,252 @@
         }
       }
     },
+    "/api/Customer/{CustomerID}/BankAccounts": {
+      "post": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Banka hesabı oluşturma servisi.",
+        "description": "Banka hesabı oluşturma servisidir. Bireysel ya da kurumsal müşteri için yeni Banka hesabı tanımlamak için kullanılır.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Oluşturulmak istenen hesap bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Yeni oluşturulan Banka hesabı dönülür",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Müşteri Banka hesabı sorgulama servisi.",
+        "description": "Verilen müşteri numarası için hesap bilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "CustomerId",
+            "in": "path",
+            "description": "Sorgulancak müteri id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak müteri id",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankAccountResponse"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Hatalı talep. Müşteri numarası gönderilmelidir"
+          }
+        }
+      }
+    },
+    "/api/Customer/{CustomerID}/BankAccounts/{BankAccountId}": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Banka hesabı sorgulama servisi.",
+        "description": "Verilen Banka hesabı numarası için kartbilgilerini elde etmek için kullanılacak servistir.",
+        "parameters": [
+          {
+            "name": "BankAccountId",
+            "in": "path",
+            "description": "Sorgulancak hesap id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Sorgulancak hesap id",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Banka hesabı güncelleme servisi.",
+        "description": "Verilen kredi hesap id için hesap bilgilerini güncellemek için kullanılacak servistir. Verilen tüm bilgiler ile hesap verileri güncellenir.",
+        "parameters": [
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "Müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Müşteri numarası",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "BankAccountId",
+            "in": "path",
+            "description": "Güncellenecek hesap id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Güncellenecek hesap id",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Güncellenecek hesap bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Banka hesabı silme servisi.",
+        "description": "Verilen hesap id için Banka hesabı bilgilerini silmek için kullanılacak servistir. Eğer silinmek istenen hesap bir ödemede kullanılıyor ise silme işlemi başarılı olmaz.",
+        "parameters": [
+          {
+            "name": "BankAccountId",
+            "in": "path",
+            "description": "Silinecek hesap id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Silinecek hesap id",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "CustomerID",
+            "in": "path",
+            "description": "müşteri numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "müşteri numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Silme işlemi başarılı ise"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Documents": {
       "post": {
         "tags": [
@@ -2104,6 +2350,47 @@
         }
       }
     },
+    "/api/Documents/base64": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "Yeni döküman yükleme servisi",
+        "description": "Verilen bilgiler ile yeni döküman oluşturmak için kullanılan servistir.",
+        "requestBody": {
+          "description": "yüklenecek dosya bilgileri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequestWKeys"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequestWKeys"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequestWKeys"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Documents/puwsr/{puwsrid}/{controlid}": {
       "post": {
         "tags": [
@@ -2192,6 +2479,71 @@
                 "FileName": {
                   "style": "form"
                 }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_DOCUMENT"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Documents/puwsr/{puwsrid}/{controlid}/base64": {
+      "post": {
+        "tags": [
+          "Documents"
+        ],
+        "summary": "özel amaçlı döküman yükleme servisi",
+        "description": "sigortalı eksik evrak yüklemek için kullanılan servistir.",
+        "parameters": [
+          {
+            "name": "puwsrid",
+            "in": "path",
+            "description": "yükelenecek dosya referans numarası. bu bilgi size verilmiş olması gereklidir.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "yükelenecek dosya referans numarası. bu bilgi size verilmiş olması gereklidir.",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "controlid",
+            "in": "path",
+            "description": "veri kontrol değeri. bu bilgi size verilmiş olması gereklidir.",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "veri kontrol değeri. bu bilgi size verilmiş olması gereklidir.",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "yüklenecek dosya",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequest"
               }
             }
           }
@@ -6115,12 +6467,12 @@
         }
       }
     },
-    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Documents/{DocumentId}": {
-      "put": {
+    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Documents/base64": {
+      "post": {
         "tags": [
           "Proposals"
         ],
-        "summary": "Sigortalının dökümanlarını güncellemek için kullanılan servistir",
+        "summary": "Sigortalının dökümanlarını yüklemek için kullanılan servistir",
         "parameters": [
           {
             "name": "ProposalID",
@@ -6143,84 +6495,24 @@
               "description": "Sigortalı numarası",
               "format": "int64"
             }
-          },
-          {
-            "name": "DocumentId",
-            "in": "path",
-            "description": "Döküman Id si",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "description": "Döküman Id si",
-              "nullable": true
-            }
           }
         ],
         "requestBody": {
+          "description": "Yüklenecek dosya bilgileri",
           "content": {
-            "multipart/form-data": {
+            "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "ContentType": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "ContentDisposition": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "Headers": {
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "nullable": true
-                  },
-                  "Length": {
-                    "type": "integer",
-                    "format": "int64"
-                  },
-                  "Name": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "FileName": {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  "DocumentTypeCode": {
-                    "type": "string",
-                    "description": "Döküman tip kodu",
-                    "nullable": true
-                  }
-                }
-              },
-              "encoding": {
-                "ContentType": {
-                  "style": "form"
-                },
-                "ContentDisposition": {
-                  "style": "form"
-                },
-                "Headers": {
-                  "style": "form"
-                },
-                "Length": {
-                  "style": "form"
-                },
-                "Name": {
-                  "style": "form"
-                },
-                "FileName": {
-                  "style": "form"
-                },
-                "DocumentTypeCode": {
-                  "style": "form"
-                }
+                "$ref": "#/components/schemas/SaveDocumentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveDocumentRequest"
               }
             }
           }
@@ -6237,7 +6529,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/api/Proposals/{ProposalID}/insureds/{CustomerID}/Documents/{DocumentId}": {
       "delete": {
         "tags": [
           "Proposals"
@@ -6602,6 +6896,11 @@
             "type": "string",
             "description": "Banka hesap numarası",
             "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -6640,6 +6939,11 @@
           "bankAccountNumber": {
             "type": "string",
             "description": "Banka hesap numarası",
+            "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
             "nullable": true
           }
         },
@@ -8041,6 +8345,11 @@
             "type": "string",
             "description": "Banka hesap numarası",
             "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8164,6 +8473,11 @@
           "bankAccountNumber": {
             "type": "string",
             "description": "Banka hesap numarası",
+            "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
             "nullable": true
           }
         },
@@ -8315,6 +8629,16 @@
             "type": "string",
             "description": "Banka hesap numarası",
             "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
+            "nullable": true
+          },
+          "iban": {
+            "type": "string",
+            "description": "Banka hesap numarası, IBAN",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -8452,6 +8776,11 @@
           "bankAccountNumber": {
             "type": "string",
             "description": "Banka hesap numarası",
+            "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
             "nullable": true
           }
         },
@@ -8728,6 +9057,11 @@
             "description": "Banka hesap numarası",
             "nullable": true
           },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
+            "nullable": true
+          },
           "lppd": {
             "type": "integer",
             "description": "KVKK onayı bilgisi",
@@ -8898,6 +9232,11 @@
           "bankAccountNumber": {
             "type": "string",
             "description": "Banka hesap numarası",
+            "nullable": true
+          },
+          "bankAccountNumberOther": {
+            "type": "string",
+            "description": "Banka hesap numarası, ek numarası",
             "nullable": true
           }
         },
@@ -9318,6 +9657,77 @@
         },
         "additionalProperties": false,
         "description": "Döküman bilgileri"
+      },
+      "SaveDocumentRequestWKeys": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "dosyanın adı",
+            "nullable": true
+          },
+          "fileData": {
+            "type": "string",
+            "description": "dosyanın içeriği",
+            "format": "byte",
+            "nullable": true
+          },
+          "documenttypecode": {
+            "type": "string",
+            "description": "Döküman tip kodu",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "description": "dosyanın boyutu",
+            "format": "int64"
+          },
+          "key1": {
+            "type": "string",
+            "description": "döküman key bilgisi.",
+            "nullable": true
+          },
+          "key2": {
+            "type": "string",
+            "description": "döküman key bilgisi.",
+            "nullable": true
+          },
+          "key3": {
+            "type": "string",
+            "description": "döküman key bilgisi.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Döküman oluşturma bilgilieri"
+      },
+      "SaveDocumentRequest": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "dosyanın adı",
+            "nullable": true
+          },
+          "fileData": {
+            "type": "string",
+            "description": "dosyanın içeriği",
+            "format": "byte",
+            "nullable": true
+          },
+          "documenttypecode": {
+            "type": "string",
+            "description": "Döküman tip kodu",
+            "nullable": true
+          },
+          "fileSize": {
+            "type": "integer",
+            "description": "dosyanın boyutu",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Döküman oluşturma bilgilieri"
       },
       "Document": {
         "type": "object",
@@ -10895,11 +11305,13 @@
           },
           "totalnetpremiumcurrency": {
             "type": "number",
+            "description": "Net prim, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
           "totalnetcommissioncurrency": {
             "type": "number",
+            "description": "Net komisyon, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
@@ -11483,26 +11895,51 @@
           },
           "totalpremiumcurrency": {
             "type": "number",
+            "description": "Toplam brüt prim, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
           "netpremiumcurrency": {
             "type": "number",
+            "description": "Toplam net prim, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
           "totalcommissioncurrency": {
             "type": "number",
+            "description": "Toplam komisyon, Döviz kodu cinsinden",
             "format": "float",
             "nullable": true
           },
           "currencycode": {
             "type": "string",
+            "description": "Döviz kodu",
             "nullable": true
           },
           "currencyrate": {
             "type": "number",
+            "description": "Döviz kuru",
             "format": "float"
+          },
+          "agencybranchcode": {
+            "type": "string",
+            "description": "Acente Şube Numarası",
+            "nullable": true
+          },
+          "iban": {
+            "type": "string",
+            "description": "Sigorta ettiren IBAN",
+            "nullable": true
+          },
+          "bankaccountnumber": {
+            "type": "string",
+            "description": "Sigorta ettiren Banka hesap numarası",
+            "nullable": true
+          },
+          "bankaccountnumberother": {
+            "type": "string",
+            "description": "Sigorta ettiren Banka hesap numarası, ek numarası",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12306,15 +12743,18 @@
           },
           "uwstatusid": {
             "type": "integer",
+            "description": "UW durumu. 0:İnceleme,1:Onay,2:RED,3:Evrak Bekleniyor",
             "format": "int32",
             "nullable": true
           },
           "uwstatusdesc": {
             "type": "string",
+            "description": "UW Durum açıklaması",
             "nullable": true
           },
           "uwstatusreasondesc": {
             "type": "string",
+            "description": "UW Durum nedeni açıklaması",
             "nullable": true
           }
         },
@@ -12573,6 +13013,7 @@
           },
           "uwstatusreasondesc": {
             "type": "string",
+            "description": "UW Durum nedeni açıklaması",
             "nullable": true
           }
         },
