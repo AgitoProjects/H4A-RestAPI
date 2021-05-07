@@ -6887,7 +6887,7 @@
             "description": "Var sayılan hesap bilgisi olarak işaretlensin mi",
             "example": true
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -6931,7 +6931,7 @@
             "description": "Var sayılan banka hesabı mı",
             "example": true
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -8336,7 +8336,7 @@
             "format": "int64",
             "nullable": true
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -8465,7 +8465,7 @@
             "format": "int64",
             "nullable": true
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -8620,7 +8620,7 @@
             "nullable": true,
             "example": "5327773344"
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -8768,7 +8768,7 @@
             "nullable": true,
             "example": "1"
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -8862,7 +8862,7 @@
             "description": "Doğum tarihi",
             "format": "date-time"
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -9047,7 +9047,7 @@
             "nullable": true,
             "example": "1"
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
@@ -9224,7 +9224,7 @@
             "nullable": true,
             "example": 1
           },
-          "bankCustomertNumber": {
+          "bankCustomerNumber": {
             "type": "string",
             "description": "Banka müşteri numarası",
             "nullable": true
