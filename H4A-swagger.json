@@ -11940,6 +11940,11 @@
             "type": "string",
             "description": "Sigorta ettiren Banka hesap numarası, ek numarası",
             "nullable": true
+          },
+          "bankaccountowner": {
+            "type": "string",
+            "description": "Sigorta ettiren Banka hesap sahibi adı",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12267,7 +12272,8 @@
           9,
           10,
           11,
-          12
+          12,
+          13
         ],
         "type": "integer",
         "description": "Hangi formun basılacağı belirtmek için kullanılan enum.\r\n<list type=\"bullet\"><item>teklif formu Türkçe : 1</item><item>poliçe basımı : 2</item><item>Sertifika basımı : 3</item><item>Zeyil Basımı : 4</item><item>Bilgilendirme formu : 5</item><item>Diğer: 7</item></list>",
