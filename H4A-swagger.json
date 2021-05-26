@@ -4377,6 +4377,114 @@
         }
       }
     },
+    "/api/Policies/{PolicyID}/Endorsements/changeowner": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigorta ettiren değişiklik zeyili oluşturma servisi",
+        "description": "Aktif bir poliçenin sigorta ettirenini değiştirmek için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "giriş parametreleri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerChangeEndorsomentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerChangeEndorsomentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OwnerChangeEndorsomentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/Endorsements/changeaddress": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Sigortalı adres değişiklik zeyili oluşturma servisi",
+        "description": "Aktif bir sigortalının adresini değiştirmek için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "adres değişiklik giriş parametreleri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressChangeEndorsomentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressChangeEndorsomentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressChangeEndorsomentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Policies/{PolicyID}/Endorsements/apply": {
       "post": {
         "tags": [
@@ -12139,6 +12247,89 @@
           "validFrom": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OwnerChangeEndorsomentRequest": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ownerid": {
+            "type": "integer",
+            "description": "Yeni sigorta ettiren müşteri numarası",
+            "format": "int64",
+            "nullable": true
+          },
+          "paymentTypeId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "bankAccountId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "creditCardId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigorta ettiren değişiklik zeyili için gerekli veriler"
+      },
+      "AddressChangeEndorsomentRequest": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "transactionDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "countryId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "provinceId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "addressDesc": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
