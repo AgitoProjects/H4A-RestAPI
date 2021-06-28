@@ -6844,8 +6844,6 @@
         "tags": [
           "SelfClaims"
         ],
-        "summary": "Hasar durumu listesi",
-        "description": "Hasar durumu listesini elde etmek için kullanılacak kaynaktır.",
         "responses": {
           "200": {
             "description": "Success",
