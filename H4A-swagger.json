@@ -987,6 +987,30 @@
         }
       }
     },
+    "/api/Claims/MobilClaimStatuses": {
+      "get": {
+        "tags": [
+          "Claims"
+        ],
+        "summary": "Hasar durumu listesi",
+        "description": "Hasar durumu listesini elde etmek için kullanılacak kaynaktır.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClaimStatusResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Companies": {
       "post": {
         "tags": [
@@ -6838,28 +6862,6 @@
           }
         }
       }
-    },
-    "/api/SelfClaims/MobilClaimStatuses": {
-      "get": {
-        "tags": [
-          "SelfClaims"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClaimStatusResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
     }
   },
   "components": {
@@ -8388,6 +8390,23 @@
           }
         },
         "additionalProperties": false
+      },
+      "ClaimStatusResponse": {
+        "type": "object",
+        "properties": {
+          "claimStatusId": {
+            "type": "integer",
+            "description": "Referans olarak kullanılacak hasar durumu değeri",
+            "format": "int32"
+          },
+          "claimStatusDesc": {
+            "type": "string",
+            "description": "Hasar durumu açıklaması",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Hasar durumu bilgisi"
       },
       "CreateCompanyRequest": {
         "type": "object",
@@ -10274,23 +10293,6 @@
         },
         "additionalProperties": false,
         "description": "Ödeme yeri bilgisi"
-      },
-      "ClaimStatusResponse": {
-        "type": "object",
-        "properties": {
-          "claimStatusId": {
-            "type": "integer",
-            "description": "Referans olarak kullanılacak hasar durumu değeri",
-            "format": "int32"
-          },
-          "claimStatusDesc": {
-            "type": "string",
-            "description": "Hasar durumu açıklaması",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Hasar durumu bilgisi"
       },
       "ProposalCancelReasonResponse": {
         "type": "object",
