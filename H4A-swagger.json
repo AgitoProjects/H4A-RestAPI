@@ -689,6 +689,15 @@
               "format": "int32",
               "nullable": true
             }
+          },
+          {
+            "name": "MobilStatusId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            }
           }
         ],
         "responses": {
@@ -3226,6 +3235,15 @@
               "type": "integer",
               "description": "Anlaşmalı kurum aranan Sigortalı numarası",
               "format": "int64",
+              "nullable": true
+            }
+          },
+          {
+            "name": "NetworkId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
               "nullable": true
             }
           }
@@ -6820,6 +6838,30 @@
           }
         }
       }
+    },
+    "/api/SelfClaims/MobilClaimStatuses": {
+      "get": {
+        "tags": [
+          "SelfClaims"
+        ],
+        "summary": "Hasar durumu listesi",
+        "description": "Hasar durumu listesini elde etmek için kullanılacak kaynaktır.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClaimStatusResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -7520,6 +7562,15 @@
             "items": {
               "$ref": "#/components/schemas/TYPE_REST_CLAIMDETAIL"
             },
+            "nullable": true
+          },
+          "mobilstatusid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "mobilstatusdesc": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -11000,6 +11051,12 @@
               "$ref": "#/components/schemas/TYPE_REST_PERSONEXEMPTION"
             },
             "description": "Sigortalı istisna metinleri",
+            "nullable": true
+          },
+          "canusewebprovision": {
+            "type": "integer",
+            "description": "Elden hasar oluşturmak için kullanılabilen bir plan ise true, değilse false gelecektir.",
+            "format": "int32",
             "nullable": true
           }
         },
