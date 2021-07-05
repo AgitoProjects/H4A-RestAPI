@@ -7051,6 +7051,16 @@
             "type": "string",
             "description": "Banka hesap numarası, ek numarası",
             "nullable": true
+          },
+          "bankId": {
+            "type": "string",
+            "description": "Banka kodu",
+            "nullable": true
+          },
+          "branchCode": {
+            "type": "string",
+            "description": "Banka şube kodu",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -7094,6 +7104,16 @@
           "bankAccountNumberOther": {
             "type": "string",
             "description": "Banka hesap numarası, ek numarası",
+            "nullable": true
+          },
+          "branchCode": {
+            "type": "string",
+            "description": "Banka şube kodu",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "string",
+            "description": "Banka kodu",
             "nullable": true
           }
         },
@@ -12110,6 +12130,16 @@
             "type": "string",
             "description": "Sigorta ettiren Banka hesap sahibi adı",
             "nullable": true
+          },
+          "bankid": {
+            "type": "string",
+            "description": "Banka id",
+            "nullable": true
+          },
+          "branchcode": {
+            "type": "string",
+            "description": "Şube kodu",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -12521,7 +12551,10 @@
           10,
           11,
           12,
-          13
+          13,
+          21,
+          22,
+          23
         ],
         "type": "integer",
         "description": "Hangi formun basılacağı belirtmek için kullanılan enum.\r\n<list type=\"bullet\"><item>teklif formu Türkçe : 1</item><item>poliçe basımı : 2</item><item>Sertifika basımı : 3</item><item>Zeyil Basımı : 4</item><item>Bilgilendirme formu : 5</item><item>Diğer: 7</item></list>",
@@ -13009,6 +13042,35 @@
           "uwstatusreasondesc": {
             "type": "string",
             "description": "UW Durum nedeni açıklaması",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "müşteri adı.",
+            "nullable": true,
+            "example": "ALİ"
+          },
+          "surname": {
+            "type": "string",
+            "description": "Bireysel müşteri soyadı",
+            "nullable": true,
+            "example": "SARI"
+          },
+          "idnumber": {
+            "type": "string",
+            "description": "TCKN numarası",
+            "nullable": true,
+            "example": "12345678901"
+          },
+          "passportnumber": {
+            "type": "string",
+            "description": "PAsaport numarası",
+            "nullable": true,
+            "example": "U5380876"
+          },
+          "nationalitycode": {
+            "type": "string",
+            "description": "Uyruk kodu",
             "nullable": true
           }
         },
