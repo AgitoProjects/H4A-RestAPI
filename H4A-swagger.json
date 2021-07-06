@@ -6311,7 +6311,14 @@
         ],
         "responses": {
           "200": {
-            "description": "İşlem başarı ile sonuçlandığında dönülür"
+            "description": "İşlem başarı ile sonuçlandığında dönülür",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
