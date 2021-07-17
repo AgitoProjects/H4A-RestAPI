@@ -13431,6 +13431,11 @@
       "MakePolicyFromProposalRequest": {
         "type": "object",
         "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, poliçe oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse poliçe oluşturulur.",
+            "format": "int32"
+          },
           "paymentPlanId": {
             "type": "integer",
             "description": "Poliçeleşmenin yapılacağı Ödeme planı",
