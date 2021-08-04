@@ -2269,6 +2269,37 @@
         }
       }
     },
+    "/api/Customer/Permissions": {
+      "put": {
+        "tags": [
+          "Customer"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionsRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionsRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Documents": {
       "post": {
         "tags": [
@@ -2653,6 +2684,44 @@
                   "items": {
                     "$ref": "#/components/schemas/DocumentTypes"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Gri/updateuser": {
+      "put": {
+        "tags": [
+          "Gri"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankAccountRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankAccountResponse"
                 }
               }
             }
@@ -6772,6 +6841,30 @@
         }
       }
     },
+    "/api/Proposals/{hashValue}": {
+      "put": {
+        "tags": [
+          "Proposals"
+        ],
+        "summary": "Teklif onay SMS içeriğinde iletilen linkte yer alan urlparam bilgisi gönderilmelidir",
+        "parameters": [
+          {
+            "name": "hashValue",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/SelfClaims": {
       "post": {
         "tags": [
@@ -9797,6 +9890,25 @@
         "additionalProperties": false,
         "description": "Müşterinin poliçe özet bilgileri"
       },
+      "PermissionsRequest": {
+        "type": "object",
+        "properties": {
+          "hashValue": {
+            "type": "string",
+            "description": "sms ile gönderilen hashValue",
+            "nullable": true
+          },
+          "lppdPermission": {
+            "type": "boolean",
+            "description": "lppdPer"
+          },
+          "ePermission": {
+            "type": "boolean",
+            "description": "EtkPermission"
+          }
+        },
+        "additionalProperties": false
+      },
       "Link": {
         "type": "object",
         "properties": {
@@ -12518,6 +12630,15 @@
           "searchEndorsementCreateDateEnd": {
             "type": "string",
             "description": "Zeyil oluşturma tarihi ile arama bitiş tarihi. DD.MM.YYYY formatında olmalıdır.",
+            "nullable": true
+          },
+          "agencyId": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "agencyCode": {
+            "type": "string",
             "nullable": true
           }
         },
