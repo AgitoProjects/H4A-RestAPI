@@ -2691,26 +2691,141 @@
         }
       }
     },
-    "/api/Gri/updateuser": {
+    "/api/Gri": {
       "put": {
         "tags": [
           "Gri"
+        ],
+        "parameters": [
+          {
+            "name": "ClientId",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SecretKey",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateBankAccountRequest"
+                "$ref": "#/components/schemas/GriUserInfo"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateBankAccountRequest"
+                "$ref": "#/components/schemas/GriUserInfo"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateBankAccountRequest"
+                "$ref": "#/components/schemas/GriUserInfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Gri"
+        ],
+        "parameters": [
+          {
+            "name": "ClientId",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SecretKey",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GriWebHookData"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GriWebHookData"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GriWebHookData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Gri"
+        ],
+        "parameters": [
+          {
+            "name": "ClientId",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          {
+            "name": "SecretKey",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "nullable": true
               }
             }
           }
@@ -2721,7 +2836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BankAccountResponse"
+                  "$ref": "#/components/schemas/GriWebHookData"
                 }
               }
             }
@@ -6841,7 +6956,7 @@
         }
       }
     },
-    "/api/Proposals/{hashValue}": {
+    "/api/Proposals/ApplicationConfirm/{hashValue}": {
       "put": {
         "tags": [
           "Proposals"
@@ -10122,6 +10237,143 @@
         "additionalProperties": false,
         "description": "Döküman tipleri"
       },
+      "GriUserInfo": {
+        "type": "object",
+        "properties": {
+          "identityNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPersonal": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GriUserData": {
+        "type": "object",
+        "properties": {
+          "identityNo": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "surname": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthPlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "birthDate": {
+            "type": "string",
+            "nullable": true
+          },
+          "marritalStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "gender": {
+            "type": "string",
+            "nullable": true
+          },
+          "fathersName": {
+            "type": "string",
+            "nullable": true
+          },
+          "mothersName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "isNewUser": {
+            "type": "string",
+            "nullable": true
+          },
+          "source": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "deletedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "isPersonal": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GriWebHookData": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/GriUserData"
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "to": {
+            "type": "string",
+            "nullable": true
+          },
+          "webHookActionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "actionName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PolicyTypeResult": {
         "type": "object",
         "properties": {
@@ -12634,11 +12886,13 @@
           },
           "agencyId": {
             "type": "integer",
+            "description": "Acente ID ile arama yapmak için",
             "format": "int64",
             "nullable": true
           },
           "agencyCode": {
             "type": "string",
+            "description": "Acente kodu ile arama yapmak için kullanılır.",
             "nullable": true
           }
         },
