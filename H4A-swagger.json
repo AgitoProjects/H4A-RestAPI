@@ -4453,6 +4453,60 @@
         }
       }
     },
+    "/api/Policies/{PolicyID}/Endorsements/exit": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Çoklu Sigortalı çıkış zeyili oluşturma servisi",
+        "description": "Verilen sigortalı listesini poliçeden çıkarmak için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "Çıkış yapılcak poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Çıkış yapılcak poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "çıkış yapma giriş parametreleri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_EXIT_REQUEST"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_EXIT_REQUEST"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_EXIT_REQUEST"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Policies/{PolicyID}/insureds/entry": {
       "post": {
         "tags": [
@@ -4585,6 +4639,60 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/PlanChangeEndorsomentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Başarılı ise",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TYPE_REST_ENDORSEMENTRESPONSE"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Policies/{PolicyID}/Endorsements/changeplans": {
+      "post": {
+        "tags": [
+          "Policies"
+        ],
+        "summary": "Birden fazla Sigortalı plan değişiklik zeyili oluşturma servisi",
+        "description": "Verilen sigortalıların planını değiştirmek için kullanılır",
+        "parameters": [
+          {
+            "name": "PolicyID",
+            "in": "path",
+            "description": "poliçe kayıt numarası",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "poliçe kayıt numarası",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "plan değişiklik giriş parametreleri",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CHANGEPLAN_REQUEST"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CHANGEPLAN_REQUEST"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TYPE_REST_CHANGEPLAN_REQUEST"
               }
             }
           }
@@ -12570,6 +12678,47 @@
         },
         "additionalProperties": false
       },
+      "TYPE_REST_PERSONLIST": {
+        "type": "object",
+        "properties": {
+          "insuredcustomerid": {
+            "type": "integer",
+            "description": "Sigortalı numarası",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigortalı listesi"
+      },
+      "TYPE_REST_EXIT_REQUEST": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactiondate": {
+            "type": "string",
+            "description": "İşlemin tanzim tarihi",
+            "format": "date-time"
+          },
+          "validfrom": {
+            "type": "string",
+            "description": "Zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
+            "format": "date-time"
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PERSONLIST"
+            },
+            "description": "Çıkış yapılacak sigortalılar",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "TYPE_REST_QUESTIONANSWER": {
         "type": "object",
         "properties": {
@@ -12705,6 +12854,52 @@
           "validFrom": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TYPE_REST_PERSONNEWPLANLIST": {
+        "type": "object",
+        "properties": {
+          "insuredcustomerid": {
+            "type": "integer",
+            "description": "Sigortalı numarası",
+            "format": "int64"
+          },
+          "newplanid": {
+            "type": "integer",
+            "description": "Aynı ürün içindeki yeni plan numarası",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Sigortalı listesi"
+      },
+      "TYPE_REST_CHANGEPLAN_REQUEST": {
+        "type": "object",
+        "properties": {
+          "test": {
+            "type": "integer",
+            "description": "Gönderimin test amaçlı olup olmadığı bilgisi. Bu değer 1 gönderilirse yapılan işlem kayıt edilmez, kayıt oluşmaz. Ancak dönen bütün değerler gerçekle aynıdır.\r\nDeğer 0 gönderilirse kayıt oluşturulur.",
+            "format": "int32"
+          },
+          "transactiondate": {
+            "type": "string",
+            "description": "İşlemin tanzim tarihi",
+            "format": "date-time"
+          },
+          "validfrom": {
+            "type": "string",
+            "description": "Zeyilinin hangi tarihten itibaren geçerli olacağını belirler.",
+            "format": "date-time"
+          },
+          "persons": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TYPE_REST_PERSONNEWPLANLIST"
+            },
+            "description": "Çıkış yapılacak sigortalılar",
+            "nullable": true
           }
         },
         "additionalProperties": false
