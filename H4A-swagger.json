@@ -2692,53 +2692,6 @@
       }
     },
     "/api/Gri": {
-      "put": {
-        "tags": [
-          "Gri"
-        ],
-        "parameters": [
-          {
-            "name": "ClientId",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          },
-          {
-            "name": "SecretKey",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "nullable": true
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GriUserInfo"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GriUserInfo"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/GriUserInfo"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      },
       "post": {
         "tags": [
           "Gri"
@@ -2812,20 +2765,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "string",
-                "nullable": true
+                "$ref": "#/components/schemas/GriWebHookSearchRequest"
               }
             },
             "text/json": {
               "schema": {
-                "type": "string",
-                "nullable": true
+                "$ref": "#/components/schemas/GriWebHookSearchRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "type": "string",
-                "nullable": true
+                "$ref": "#/components/schemas/GriWebHookSearchRequest"
               }
             }
           }
@@ -10345,27 +10295,6 @@
         "additionalProperties": false,
         "description": "Döküman tipleri"
       },
-      "GriUserInfo": {
-        "type": "object",
-        "properties": {
-          "identityNo": {
-            "type": "string",
-            "nullable": true
-          },
-          "phone": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "isPersonal": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
       "GriUserData": {
         "type": "object",
         "properties": {
@@ -10422,8 +10351,7 @@
             "nullable": true
           },
           "isNewUser": {
-            "type": "string",
-            "nullable": true
+            "type": "boolean"
           },
           "source": {
             "type": "string",
@@ -10436,15 +10364,18 @@
           },
           "createdAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "updatedAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "deletedAt": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "status": {
             "type": "integer",
@@ -10476,6 +10407,16 @@
             "nullable": true
           },
           "actionName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GriWebHookSearchRequest": {
+        "type": "object",
+        "properties": {
+          "actionID": {
             "type": "string",
             "nullable": true
           }
