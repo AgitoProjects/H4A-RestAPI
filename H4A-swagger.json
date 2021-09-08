@@ -12274,18 +12274,18 @@
             "format": "float",
             "nullable": true
           },
-          "uwStatusId": {
+          "uwstatusid": {
             "type": "integer",
             "description": "UW durumu. 0:İnceleme,1:Onay,2:RED,3:Evrak Bekleniyor",
             "format": "int32",
             "nullable": true
           },
-          "uwStatusDesc": {
+          "uwstatusdesc": {
             "type": "string",
             "description": "UW Durum açıklaması",
             "nullable": true
           },
-          "uwStatusReasonDesc": {
+          "uwstatusreasondesc": {
             "type": "string",
             "description": "UW Durum nedeni açıklaması",
             "nullable": true
